@@ -5,8 +5,11 @@ This is the README for the pp6calculator project.
 
 Authors
 --------
--Andy Sturgess
+Andy Sturgess
 
 License
--------
+--------
 pp6calculator is distributed under the terms of the Boost Software License
+
+Installation
+-------------
