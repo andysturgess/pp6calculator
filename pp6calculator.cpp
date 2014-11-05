@@ -2,13 +2,31 @@
 #include <cmath>
 #include <limits>
 
-int main(){
+//Now we define the functions!
 
+double add(double a,double b){
+  return a + b;
+}
+
+double subtract(double a, double b){
+  return a - b;
+}
+
+double multiply(double a,double b){
+  return a * b;
+}
+
+double divide(double a, double b){
+  return a / b;
+}
+
+int main(){
+  
   double a(0), b(0), c(0);
   char op('\0');
-
+  
   while(true){
- 
+    
     
     std::cout << "What would you like to do? (*,/,-,+).. (q = quit) "<< std::endl;
     std:: cin >> op;
@@ -38,19 +56,19 @@ int main(){
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
       continue;
     }
-
+    
     if(op == '+'){
-      c = a + b;
+      c = add(a,b);
     }
     else if(op == '-'){
-      c = a - b;
+      c = subtract(a,b);
     }
     else if (op == '*'){
-      c = a * b;
+      c = multiply(a,b);
     }
     else if (op == '/'){
       if(fabs(b) > 0){
-	c = a/b;
+	c = divide(a,b);
       }
       if(fabs(b) == 0){
 	std::cerr<<"[ERR] Can't divide by zero!" << std::endl;
@@ -72,10 +90,3 @@ int main(){
   return 0;
 }
     
-    
-    
-
-   
-    
-
-  
