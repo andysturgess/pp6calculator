@@ -1,82 +1,81 @@
 #include <iostream>
 #include <cmath>
-#include <climits>
+#include <limits>
 
+int main(){
 
-int main()
-{
+  double a(0), b(0), c(0);
+  char op('\0');
 
-  int var;
-  std::cout << "What would you like to do?" << std::endl;
-  std::cout << "1. Multiplication" << std::endl;
-  std::cout << "2. Division" << std::endl;
-  std::cout << "3. Addition" << std::endl;
-  std::cout << "4. Subtraction" << std::endl;
-
-  std::cin >> var;
-  
-
-  if(var < 1){
-      std::cout << "Hey man, take this more seriously"<< std::endl;
-      //return 0;
-    }
-  if(var > 4){
-    std::cout << "Hey man, take this more seriously"<< std::endl;
-    //return 0;
+  while(true){
+ 
+    
+    std::cout << "What would you like to do? (*,/,-,+).. (q = quit) "<< std::endl;
+    std:: cin >> op;
+    if (!std::cin){
+      std::cerr<<" [ERR] Please enter a valid operation"<< std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      continue;
     }
 
+    if(op == 'q') break;
 
-  if(var ==1){
-    std::cout << "Please enter two numbers that you wanna multiply" << std::endl;
-  
-    double a,b,c;
-    std::cin>>a;
-    std::cin>>b;
-    c = a * b;
+    std::cout << "Please enter your first number" << std::endl;
+    std::cin >> a;
+    if(!std::cin){
+      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      continue;
+    }
 
-    std::cout << "The product of the numbers " << a << " and " << b << " is: " << c <<std::endl;
+    std::cout << "Please enter your second number" << std::endl;
+    std::cin >> b;
+    if(!std::cin){
+      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      continue;
+    }
+
+    if(op == '+'){
+      c = a + b;
+    }
+    else if(op == '-'){
+      c = a - b;
+    }
+    else if (op == '*'){
+      c = a * b;
+    }
+    else if (op == '/'){
+      if(fabs(b) > 0){
+	c = a/b;
+      }
+      if(fabs(b) == 0){
+	std::cerr<<"[ERR] Can't divide by zero!" << std::endl;
+	continue;
+      }
+    }
+    else
+      {
+	std::cerr<<"[ERR] we need a valid operation"<<std::endl;
+	continue;
+      }
+
+    std::cout << "the result of the operation '" << op 
+	      << "' for numbers " << a << " and " << b 
+	      << " is " << c << std::endl; 
   }
 
-   if(var ==2){
-    std::cout << "Please enter two numbers that you wanna divide" << std::endl;
-  
-    double a,b,c;
-    std::cin>>a;
-    std::cin>>b;  
-    c = a / b;
-    if(b == 0) std::cout << "dont divide by 0!" << std::endl;
-    if(fabs(b) > 0){
-      std::cout << "The division of the numbers " << a << " and " << b << " is: " << c <<std::endl;
-    }
-  }
-
-   if(var ==3){
-     std::cout << "Please enter two numbers that you wanna add" << std::endl;
-     
-     double a,b,c;
-     std::cin>>a;
-     std::cin>>b;
-     c = a + b;
-
-     std::cout << "The addition of the numbers " << a << " and " << b << " is: " << c <<std::endl;
-   }
-   
-   if(var == 4){
-     std::cout << "Please enter two numbers that you wanna subtract" << std::endl;
-     
-     double a,b,c;
-     std::cin>>a;
-     std::cin>>b;   
-     c = a - b;
-
-     std::cout << "The subtraction of the numbers " << a << " and " << b << " is: " << c <<std::endl;
-   }
-  
-  
-  
-  
-
-  
+  std::cout << "Hope you enjoyed using the calculator" << std::endl;
   return 0;
-  
 }
+    
+    
+    
+
+   
+    
+
+  
