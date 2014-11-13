@@ -1,12 +1,13 @@
 #include <iostream>
 #include <cmath>
-#include <math.h>
 #include <limits>
 #include <vector>
 #include <utility>
-#include <sstream>
+#include <complex>
 
-//Now we define the functions!
+//=======================================
+//This is where the functions are defined
+//=======================================
 
 double add(double a,double b){
   return a + b;
@@ -22,172 +23,223 @@ double divide(double a, double b){
 }
 double intercept(double a, double b, double c, double d){
   double gradient = (d-b)/(c-a);
-  double dx = c-a;
-  double cint = b - gradient*a;
-  if (gradient == 0.){
-    return 0;
-  }
-  else if (!gradient == 0){
-    return -cint/gradient;
-  }
-  else if (dx == 0){
-    return -cint/gradient;
-  }
+  double x_intercept = b - gradient*a;
+  return x_intercept;
 }
 
-// quadratic function, need imaginary numbers. 
-// pair of strings seems to be natural solution!
-
-std::pair<std::string,std::string> quadratic(double a, double b, double c){                          
-  double quotient = (b*b - 4*a*c);
-  std::string solve1; 
-  std::string solve2;
-
-  if(quotient >= 0.){
-    double discr1 = (-b + sqrt(quotient))/(2*a) ;
-    double discr2 = (-b - sqrt(quotient))/(2*a) ;
-    std::ostringstream strs1;
-    std::ostringstream strs2;
-    strs1 << discr1;
-    strs2 << discr2;
-    std::string str1 = strs1.str();
-    std::string str2 = strs2.str();
-    solve1 = str1;
-    solve2 = str2;
+std::pair<std::complex<double>,std::complex<double> > quadratic(std::complex<double> m,std::complex<double> n, std::complex<double> o, bool& pos, bool& neg){
+  std::complex<double> discriminant = n * n - 4.0*m*o;
+  if (std::real(discriminant) >= 0.){ 
+    pos = true;
   }
   else{
-    double discr1 = sqrt(fabs(quotient))/(2*a);
-    double discr2 = (-b/(2*a));
-    std::ostringstream strs1;
-    std::ostringstream strs2;
-    strs1 << discr1;
-    strs2 << discr2;
-    std::string str1 = strs1.str() + "i";
-    std::string str2 = strs2.str() + "+" + str1;
-    std::string str3 = strs2.str() + "-" + str1;
-    solve1 = str2;
-    solve2 = str3; 
+    neg = true;
   }
-  std::pair<std::string,std::string> solve;
-  solve.first = solve1;
-  solve.second = solve2;
-  return solve;
+  std::pair<std::complex<double>,std::complex<double> > solutions;
+  std::complex<double> x1 = (-n + std::sqrt(discriminant))/(2.*m);
+  std::complex<double> x2 = (-n - std::sqrt(discriminant))/(2.*m);
+  solutions.first = x1;
+  solutions.second = x2; 
+  return solutions;
 }
 
-// use a pair again here, i.e save results of both to a single object
-// can then call either dependent on if picking three or four vector!
+double vectorlength3(double a, double b, double c){
+  double length_3 =std::sqrt( a*a + b*b +  c*c);
+  return length_3;
+    }
 
-std::pair<double,double> vectorlength(double a, double b, double c, double d){
-  double length_3 = sqrt(a*a + b*b +c*c);
-  double length_4 = d*d - a*a -b*b - c*c;
-  std::pair<double,double> length;
-  length.first = length_3;
-  length.second = length_4;
-  return length;
+double vectorlength4(double a, double b, double c, double d){
+  double length_4 = d*d - a*a - b*b -c*c ;
+  return length_4;
 }
 
 double invmass(double a, double b, double c, double d, double theta){
-  double angle = theta * (3.14159/180);
-  double sqterm = a*a + c*c -b*b - d*d;
-  double crossterm = 2*a*c - 2*b*d*angle;
-  double inv2 = sqterm + crossterm;
-  double inv = sqrt(inv2);
-  return inv;
+  double ConvertDegtoRad = theta * (3.14159/180);
+  double squared_terms = a*a + c*c -b*b - d*d;
+  double cross_terms = 2*a*c - 2*b*d*ConvertDegtoRad;
+  double inv_mass_sq = squared_terms + cross_terms;
+  double inv_mass = sqrt(inv_mass_sq);
+  return inv_mass;
 }
 
-// Start of the main program!!
+double swap(double& a, double&b){
+  a = a + b;
+  b = a - b;
+  a = a - b;
+}
+
+double Bubble(double array[]){
+ 
+  int i,j;
+  for(i = 0; i < 5; i++){
+    for(j = 0; j < 4 - i; j++){
+      if(array[j] < array[j+1]){                          
+	swap(array[j],array[j+1]);
+      }
+    }
+  }
+  
+}
+
 
 int main(){
 
   double a(0), b(0), res(0), res2(0), c(0), d(0), check(0), theta(0);
-  std::pair<std::string,std::string> twox;
+  double bubble_array[5];
+  std::pair<std::complex<double>,std::complex<double> > ReturnQuadSols;
   std::pair<double,double> vlength;
   char op('\0');
+
+  // =======================================
+  // Variables used in the program - defined.
+  // =======================================
   
   while(true){
-    std::cout << "What would you like to do? (*,/,-,+,i,x,l).. (q = quit) "<< std::endl;
+    std::cout << "What would you like to do? (q = quit) "<< std::endl;
     std::cout << "*  = multiplication." << std::endl;
     std::cout << "/  = division." << std::endl;
     std::cout << "-  = subtraction." << std::endl;
     std::cout << "*  = addition" << std::endl;
     std::cout << "i  = x intercept." << std::endl;
     std::cout << "x  = solve a quadratic." << std::endl;
-    std::cout << "l  = length of 3 or 4 vector." << std::endl;
+    std::cout << "t  = length of a 3 vector." << std::endl;
+    std::cout << "f  = length of a 4 vector." << std::endl;
     std::cout << "m  = invariant mass of two particles " << std::endl;
-
-   
+    std::cout << "s  = swap variables" << std::endl;
+    std::cout << "b  = bubble sort variables" << std::endl;
+    
     std:: cin >> op;
-    if (!std::cin){
-      std::cerr<<" [ERR] Please enter a valid operation"<< std::endl;
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-      continue;
-    }
-    
-    // asks you what you'd like to do!
-    
     if(op == 'q') break;
-    if(op == 'x') std::cout << "The form of a quadratic is ax^2 + bx + c" <<std::endl;
-    
-    if(op == 'l'){
-      std::cout << "Determine the length of a 3 or 4 vector?" <<std::endl;
-      std::cout << "0. 3 Vector" << std::endl;
-      std::cout << "1. 4 Vector" << std::endl;
-      std::cin >> check;
-      if(fabs(check) > 1){
-	std::cout << " \n  Please choose again! \n" << std::endl;
+
+    if(op == '+'){
+      std::cout << "Please enter your first number" << std::endl;
+      std::cin >> a;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 	continue;
       }
+      
+      std::cout << "Please enter your second number" << std::endl;
+      std::cin >> b;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
+      
+      res = add(a,b);
+      std::cout << " The result of adding " << a << " and " << b << " is " << res << std::endl;
     }
     
-    // some statements to see on screen, dependent on the function being used!
-    // Note: vector length has two options within the function!
+    // ==================================================
+    // calculating the addition function for two numbers;
+    // =================================================
     
-    if(op == 'i') std::cout << "Please enter x of point 1" << std::endl;
-    else if(op == 'x') std::cout << "Please enter 'a'" << std::endl;
-    else if(op == 'l') std::cout << "Please enter 'x'" << std::endl;
-    else if(op == 'm') std::cout << "Plese enter the energy of particle 1(GeV)" << std::endl;
-    else std::cout << "Please enter your first number" << std::endl;
+    if(op == '-'){
+      std::cout << "Please enter your first number" << std::endl;
+      std::cin >> a;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
+
+      std::cout << "Please enter your second number" << std::endl;
+      std::cin >> b;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      	continue;
+      }	
+      
+      res = subtract(a,b);
+      std::cout << " The result of subtracting " << a << " and " << b << " is " << res << std::endl;
+    }
     
+    // ====================================================
+    // calculating the subtraction function for two numbers;
+    // ====================================================
     
-    std::cin >> a;
-    if(!std::cin){
-      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-      continue;
+    if(op == '*'){
+      std::cout << "Please enter your first number" << std::endl;
+      std::cin >> a;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      	continue;
+      }	
+      
+      std::cout << "Please enter your second number" << std::endl;
+      std::cin >> b;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      	continue;
+      }	
+      
+      res = multiply(a,b);
+      std::cout << " The result of multiplying " << a << " and " << b << " is " << res << std::endl;
     }
 
-    // every function needs at least two inputs - this is the first.
-   
-    if(op == 'i')  std::cout << "Please enter y of point 1" << std::endl;
-    else if(op == 'x') std::cout << "Please enter 'b'" << std::endl;
-    else if(op == 'l') std::cout << "Please enter 'y'" << std::endl;
-    else if(op == 'm') std::cout << "Please enter the momentum of particle 1 (GeV)" << std::endl;
-    else std::cout << "Please enter your second number" << std::endl;
+    // =======================================================
+    // calculating the multiplication function for two numbers;
+    // =======================================================
     
-    std::cin >> b;
-    if(!std::cin){
-      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-      continue;
-    }
-    
-    // every function needs at least two inputs - this is the second.
 
-    if (b > a){
-      std::cout << "Momentum is greater than energy? not possible!" << std::endl;
+    if(op == '/'){
+      std::cout << "Please enter your first number" << std::endl;
+      std::cin >> a;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      	continue;
+	 }	
+      
+      std::cout << "Please enter your second number" << std::endl;
+      std::cin >> b;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
       continue;
+      }
+     
+      res = divide(a,b);
+      std::cout << " The result of dividing " << a << " and " << b << " is " << res << std::endl;
     }
+  
+    // =================================================
+    // calculating the division function for two numbers;
+    // =================================================
+      
+    if(op == 'i'){
+      std::cout << "Please enter x of point 1" << std::endl;
+      std::cin >> a;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      continue;
+      }
+      
+      std::cout << "Please enter y of point 1" << std::endl;
+      std::cin >> b;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
 
-    // stops invalid inv mass calculation
-    
-    if(op =='i' || op == 'x' || op ==  'l' || op == 'm'){
-      if(op =='i') std::cout << "Please enter your x of point 2" << std::endl;
-      else if (op == 'l') std::cout << "Please enter 'z'" << std::endl;
-      else if (op == 'm') std::cout << "Please enter the energy of particle 2(GeV)" << std::endl;
-      else std::cout << "Please enter 'c'" << std::endl;
+      std::cout << "Please enter x of point 2" << std::endl;
       std::cin >> c;
       if(!std::cin){
 	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
@@ -195,14 +247,151 @@ int main(){
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 	continue;
       }
+
+      std::cout << "Please enter y of point 2" << std::endl;
+      std::cin >> d;
+       if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
+      
+       else{
+	 std::cout << "intercept of x for a line connecting coords ("
+		 << a << ","<< b
+		 << ") and (" << c << ","<< d
+		 << ") is " << res << "\n" << std::endl;
+       }
+    }
+  
+    // =======================================================================
+    // Input/output to calculate the intercept of a straight line (y = mx + c)
+    // ======================================================================
+   
+    if(op == 'x'){
+      std::cout << "the standard form of quadratic equation is ax^2 + bx + c)" << std::endl;
+
+      bool pos = false; 
+      bool neg = false;
+
+      // The two variables which are used for passing by reference
+      // Not really important; just another way of telling us if  
+      // we are dealing with imaginary solutions or not.
+
+      std::cout << "Please enter a" << std::endl;
+      std::complex<double> m;
+      std::cin >> m;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
+      
+      std::cout << "Please enter b" << std::endl;
+      std::complex<double> n;
+      std::cin >> n;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
+      
+      std::cout << "Please enter c" << std::endl;
+      std::complex<double> o;
+      std::cin >> o;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
+      
+      
+      ReturnQuadSols = quadratic(m,n,o,pos,neg);
+      
+      if (pos == true) std::cout << " valid discriminant = non-imaginary solutions"
+				 << std::endl;
+      if (neg == true) std::cout << " invalid discriminant = imaginary solutions"
+				 << std::endl;
+      std::cout << " The form of the solution is (real,imaginary)" << std::endl;
+      std::cout << " for example, a solution like (-3 + 2i) & (-3 - 2i)" << std::endl;
+      std::cout << " Would appear as (-3,2) and (-3,-2)" << std::endl;
+      std::cout << " The two solutions for this quadratic equation are "
+		<< ReturnQuadSols.first << " and " << ReturnQuadSols.second << "\n" << std::endl;
+    }
+
+    // =========================================================
+    // Input/out to obtain the solutions of a quadratic equation
+    // ========================================================
+    
+    if(op == 't'){
+      std::cout << " Please enter the value of the 'x' coordinate" << std::endl;
+      std::cin >> a;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
+      
+      std::cout << " Please enter the value of the 'y' coordinate" << std::endl;
+      std::cin >> b;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
+      
+      std::cout << " Please enter the value of the 'Z' coordinate" << std::endl;
+      std::cin >> c;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
+
+      res = vectorlength3(a,b,c);
+      std::cout << " The length of this three-vector is " << res << std::endl;
     }
     
-    //only intercept, quadratic, vector length and invariant mass need three inputs
-    
-    if(op == 'i'|| check == 1 || op == 'm' ){
-      if(op =='i') std::cout << "Please enter y of point 2" << std::endl;
-      else if (op == 'l') std::cout << "Please enter 't'" << std::endl;
-      else if (op == 'm') std::cout << "Please enter the momentum  of particle 2(GeV)" << std::endl;
+    // ====================================================
+    // Input/output for calculating a length of a 3 vector
+    // ====================================================
+
+  if(op == 'f'){
+      std::cout << " Please enter the value of the 'x' coordinate" << std::endl;
+      std::cin >> a;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
+      
+      std::cout << " Please enter the value of the 'y' coordinate" << std::endl;
+      std::cin >> b;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
+      
+      std::cout << " Please enter the value of the 'Z' coordinate" << std::endl;
+      std::cin >> c;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
+
+      std::cout << " Please enter the value of the 't' coordinate" << std::endl;
       std::cin >> d;
       if(!std::cin){
 	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
@@ -210,115 +399,133 @@ int main(){
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 	continue;
       }
+      
+      res = vectorlength4(a,b,c,d);
+      std::cout << " The length of this four-vector is " << res << std::endl;
     }
-
-    //only intercept, vector length and invariant mass need four inputs
     
-    if (d > c){
-      std::cout << "Momentum is greater than energy? not possible!" << std::endl;
+    // ===================================================
+    // Input/output for calculating a length of a 4 vector
+    // ===================================================
+    
+  if(op == 'm'){
+    std::cout << " Please enter the energy of particle 1 (GeV)" << std::endl;
+    std::cin >> a;
+    if(!std::cin){
+      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
       continue;
     }
-    
-    // stops invalid inv mass calculation
-
-    if(op == 'm'){
-      std::cout << "What is the angle of collision between the two particles? (180 deg is head on!)"
-		<< std::endl;
-      std::cin >> theta;
-      if(!std::cin){
-	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
-	std::cin.clear();
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-	continue;
-      }
-      if(theta > 180){
-	std::cout << " Pick a more sensible angle!" << std::endl;
-	continue;
-      }
-    }
-
-    //only invariant mass needs five inputs
-    
-    if(op == '+'){
-      res = add(a,b);
-    }
-    else if(op == '-'){
-      res = subtract(a,b);
-    }
-    else if (op == '*'){
-      res = multiply(a,b);
-    }
-    else if (op == '/'){
-      if(fabs(b) > 0){
-	res = divide(a,b);
-      }
-      if(fabs(b) == 0){
-	std::cerr<<"[ERR] Can't divide by zero!" << std::endl;
-	continue;
-      }
-    }
-    else if(op == 'i'){
-      res = intercept(a,b,c,d);
-    }
-    else if(op == 'x'){
-      twox = quadratic(a,b,c);
-    }
-    else if(op == 'l'){
-      vlength = vectorlength(a,b,c,d);
-    }
-    else if(op == 'm'){
-      res = invmass(a,b,c,d,theta);
-    }
-    
-    else{
-      std::cerr<<"[ERR] we need a valid operation"<<std::endl;
+      
+    std::cout << " Please enter the momentum of particle 1 (GeV)" << std::endl;
+    std::cin >> b;
+    if(!std::cin){
+      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
       continue;
     }
-    
-    // the if and else statements; these assign results dependent on the function!
- 
-    if(op == 'i'){
-      std::cout << "intercept of x for a line connecting coords ("
-		<< a << ","<< b
-		<< ") and (" << c << ","<< d
-		<< ") is " << res << "\n" << std::endl;
-      if(isnan(res)){
-	std::cout << "You have a vertical line," 
-		  << " your x intercept must be "
-		  << a << "\n" <<std::endl;
-      }
+	
+    if(b > a){
+      std::cout << "Momentum > Energy; not possible!" << std::endl;
+      continue;
     }
-    else if (op == 'x'){
-      std::cout << "The two solutions for this quadratic equation are "
-		<< twox.first << " and " << twox.second << "\n" << std::endl;
-    }
-    else if (op == 'l'){
-      if(check == 0){
-	std::cout << "The length of this three vector is " 
-		  << vlength.first << "\n" <<std::endl;
-      }
-      else{
-	std::cout << "The length of this four vector is " 
-		  << vlength.second << std::endl;
-	if(vlength.second == 0) std::cout << "You have a NULL vector!" << std::endl;
-	else if(vlength.second > 0) std::cout << "You have a TIMELIKE vector!" << std::endl;
-	else std::cout << "You have a SPACELIKE vector! \n" << std::endl;
-      }
-    }
-    else if(op == 'm'){
-      std::cout << "The invariant mass of the two particle system is "
-		<< res << " GeV \n" << std::endl;
+       
+    std::cout << " Please enter the energy of particle 2 (GeV)" << std::endl;
+    std::cin >> c;
+    if(!std::cin){
+      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      continue;
     }
 
-    else{
-      std::cout << "the result of the operation '" << op
-		<< "' for numbers " << a << " and " << b
-		<< " is " << res << "\n" <<std::endl;
-    } 
+    std::cout << "Please enter the momentum of particle 2 (GeV)" << std::endl;
+    std::cin >> d;
+    if(!std::cin){
+      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      continue;
+    }
+
+    if(d > c){
+      std::cout << "Momentum > Energy; not possible!" << std::endl;
+      continue;
+    }
+
+    std::cout << "Please enter the angle between the collision (180 degrees is head on!)" << std::endl;
+    std::cin >> theta;
+    if(!std::cin){
+      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      continue;
+    }
+
+    res = invmass(a,b,c,d,theta);
+    std::cout << "The Invariant mass of the system is " << res << std::endl;
   }
 
-  // outputting the results to screen; each function has a different output.
+  // =============================================================
+  // input/output to calculate the invariant mass of two particles
+  // =============================================================
+      
+  if(op == 's'){
+    std::cout << "Please enter your first number" << std::endl;
+    std::cin >> a;
+    
+    if(!std::cin){
+      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      continue;
+    }
+    
+    std::cout << "Please enter your second number" << std::endl;
+    std::cin >> b;
+    if(!std::cin){
+      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      	continue;
+    }	
+    std::cout << " the result of swapping " << a << " and " << b << std::endl;
+    res = swap(a,b);
+    std::cout << " means that a is now " << a << " and b is now " << b << std::endl;
+  }
+
+  // ======================================================
+  // this inputs and outputs the swap of two numbers a and b
+  // ======================================================
+  
+  if(op == 'b'){
+    std::cout << "Please enter five numbers" << std::endl;
+    for (int j = 0; j < 5; j++){
+      std::cin >> bubble_array[j];
+    }	
+
+    if(!std::cin){
+      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+      continue;
+    }
+    std::cout << " The array has now been bubble sorted.." << std::endl;
+    Bubble(bubble_array);
+    for(int i = 0; i < 5; i++){
+      std::cout << bubble_array[i] << std::endl;
+    }
+  }
+
+  // =======================================================
+  // this inputs and outputs the bubble sort of five numbers
+  // =======================================================
+  
+  }
   
   std::cout << "Please use me again sometime in the future?" << std::endl;
   return 0;
+  
 }
