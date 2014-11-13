@@ -3,6 +3,8 @@
 *.lo
 *.o
 *.obj
+*.pyc
+*.a
 
 # Precompiled Headers
 *.gch
@@ -26,3 +28,7 @@
 *.exe
 *.out
 *.app
+
+#Text Editor Temporaries
+*~
+*.swp
