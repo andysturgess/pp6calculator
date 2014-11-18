@@ -1,13 +1,14 @@
-#include "PP6Math_d1.hpp"
+#include "PP6Math.hpp"
 
 // Standard Library
 
 #include <iostream>
 #include <cmath>
 #include <limits>
-#include <vector>
 #include <utility>
 #include <complex>
+#include <vector>
+#include <cstdlib>
 
 //---------------------------------------------------------------------
 // Function Definitions
@@ -65,3 +66,68 @@ double invmass(double a, double b, double c, double d, double theta){
   double inv_mass = sqrt(inv_mass_sq);
   return inv_mass;
 }
+
+// - Day two
+
+double inputvalue(){
+  double value(0);
+  std::cin >> value;
+  while(!std::cin){
+    std::cout << "[ERR]. Please enter a valid number!" << std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin >> value;
+  }
+
+  return value;
+}
+
+void swap(double& a, double&b){
+  a = a + b;
+  b = a - b;
+  a = a - b;
+}
+
+void Bubble(double array[]){
+  int i,j;
+  for(i = 0; i < 5; i++){
+    for(j = 0; j < 4 - i; j++){
+      if(array[j] < array[j+1]){
+	swap(array[j],array[j+1]);
+      }
+    }
+  }
+
+}
+
+std::pair<double,double> SPECTRUM(){
+  std::pair<double,double> AVGE_STDDEV;
+  double total_E;
+  double total_dev;
+  double px[100];
+  double py[100];
+  double pz[100];
+  double M[100];
+  double E[100];
+  double x_m_avg[100];
+
+  for(int i = 0; i < 100; i++){
+     px[i] = rand()%100;
+     py[i] = rand()%100;
+     pz[i] = rand()%100;
+     M[i] =  rand()%100;
+     E[i] = std::sqrt(px[i]*px[i] + py[i]*py[i] + pz[i]*pz[i] + M[i]*M[i]);
+    total_E = total_E + E[i];
+  }
+  for(int i = 0; i < 100; i++){
+    x_m_avg[i] = (E[i] - (total_E/100.))*(E[i] - (total_E/100.));
+    total_dev = total_dev + x_m_avg[i];
+  }
+
+  double AVGE = (total_E / 100.) ;
+  double STDDEV = std::sqrt(total_dev / 100.);
+  AVGE_STDDEV.first = AVGE;
+  AVGE_STDDEV.second = STDDEV;
+  return AVGE_STDDEV;
+}
+

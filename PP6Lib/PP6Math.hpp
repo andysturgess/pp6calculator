@@ -1,11 +1,13 @@
-//! \file   PP6Math_d1.hpp
+//! \file   PP6Math.hpp
 //! \author Andy Sturgess
-//! \brief  Declarations for pp6calculator - day one
+//! \brief  Declarations for pp6calculator - day one, day two
 
-#include <complex>
+#include<utility>
+#include<complex>
 
-#ifndef PP6CALCULATOR_PP6MATH_D1_HH
-#define PP6CALCULATOR_PP6MATH_D1_HH
+#ifndef PP6CALCULATOR_PP6MATH_HH
+#define PP6CALCULATOR_PP6MATH_HH
+
 
 // Day One Declarations
 // ----------------------------------------------------------------
@@ -27,5 +29,12 @@ double vectorlength3(double a, double b, double c);
 double vectorlength4(double a, double b, double c, double d);
 double invmass(double a, double b, double c, double d, double theta);
 
+// Day two declarations
 
-#endif // PP6CALCULATOR_PP6MATH_D1_HH
+double inputvalue();
+void swap(double& a, double&b);
+void Bubble(double array[]);
+std::pair<double,double> SPECTRUM();
+
+
+#endif // PP6CALCULATOR_PP6MATH_HH

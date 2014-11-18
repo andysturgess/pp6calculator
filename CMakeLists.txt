@@ -26,7 +26,7 @@ add_subdirectory(PP6Lib)
 
 # - Add the pp6calculator program
 # -----------------------------------------------------------
-add_executable(pp6calculator pp6calculator.cpp PP6Lib/PP6Math_d1.cpp PP6Lib/PP6Math_d2.cpp PP6Lib/PP6Math_d1.hpp PP6Lib/PP6Math_d2.hpp)
+add_executable(pp6calculator pp6calculator.cpp PP6Lib/PP6Math.cpp PP6Lib/PP6Math.hpp PP6Lib/DAY1_MENU.cpp PP6Lib/DAY1_MENU.hpp PP6Lib/DAY2_MENU.hpp PP6Lib/DAY2_MENU.cpp)
 
 # - Link pp6calculator to the pp6lib library
 # -----------------------------------------------------------
