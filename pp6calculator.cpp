@@ -14,9 +14,9 @@ int main(){
 
       std::cout << "PP6 CALCULATOR - Main Menu" << std::endl;
       std::cout << "Which day would you like to access?" << std::endl;
-      std::cout << "Day 1) - Basic Mathematics" << std::endl;
-      std::cout << "Day 2) - Arrays etc." << std::endl;
-      std::cout << "q)     - quit" << std::endl;
+      std::cout << "1) - Basic Mathematics" << std::endl;
+      std::cout << "2) - Arrays etc." << std::endl;
+      std::cout << "q) - Quit" << std::endl;
 
       std::cin >> day;
       if(!std::cin)
@@ -39,7 +39,7 @@ int main(){
 	continue;
       }
 
-      std::cout<< "ahhhaahah" << std::endl;
+      std::cout<< "Thanks for using PP6 calculator!" << std::endl;
       return 0;
 
     }

@@ -2,6 +2,7 @@
 
 #include "DAY2_MENU.hpp"
 #include "PP6Math.hpp"
+#include "MUONANALYSIS.hpp"
 
 #include <cmath>
 #include <iostream>
@@ -22,6 +23,7 @@ void day2_menu(){
     std::cout << "s  = swap variables" << std::endl;
     std::cout << "b  = bubble sort variables" << std::endl;
     std::cout << "e  = AVG E and STDDEV of 100 random particles" << std::endl;
+    std::cout << "g = read the data file ObservedParticles.dat" << std::endl;
     std::cin >> op;
     if(!std::cin){
       std::cout<< "[ERR] Please input a valid operation!" << std::endl;
@@ -66,6 +68,10 @@ void day2_menu(){
       std::cout << "Average energy is (" << ReturnAVGandSTDDEV.first
 		<< "+/-" << ReturnAVGandSTDDEV.second << ") GeV"
 		<< std::endl;
+    }
+    
+    else if(op == 'g'){
+      muon_pairs();
     }
   }
 }
