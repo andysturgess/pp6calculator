@@ -38,11 +38,23 @@ std::pair<double,double> SPECTRUM();
 
 // Day three declarations
 struct FourVector{
-  const double x;
-  const double y;
-  const double z;
-  const double t;
+  double x;
+  double y;
+  double z;
+  double t;
 };
+
+enum FourVectorMagSign{
+  SPACELIKE,
+  TIMELIKE,
+  LIGHTLIKE
+};
+
+FourVector* createFourVector();
+void destroyFourVector(FourVector *&q);
+void fillFourVector(FourVector *q, double x, double y, double z, double t);
+void evalboostz(FourVector *q, double v);
+void opinterval(FourVector *q);
 
 void boostalongz(double x, double y, double& z, double& t, double v);
 void boostz(FourVector q, double v);

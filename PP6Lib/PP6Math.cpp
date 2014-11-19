@@ -161,3 +161,48 @@ double invint(FourVector q){
 }
 
 
+
+void fillFourVector(FourVector *q, double &x, double &y, double &z, double &t){
+  if(q){
+    q->x=x;
+    q->y=y;
+    q->z=z;
+    q->t=t;
+  }
+}
+
+FourVector* createFourVector(){
+  return new FourVector;
+}
+
+void destroyFourVector(FourVector *&q){
+  if(q){
+    delete q;
+    q = 0;
+  }
+}
+
+void evalboostz(FourVector *q , double v){
+  if(q){
+    double gamma = 1/(std::sqrt(1-v*v));
+    q->x = q->x;
+    q->y = q->y;
+    q->z = gamma*((q->z) - v*(q->t));
+    q->t = gamma*((q->t) - v*(q->z));
+ 
+    std::cout << "the results of the boost" << std::endl;
+    std::cout << " x component = " << q->x << std::endl;
+    std::cout << " y component = " << q->y << std::endl;
+    std::cout << " z component = " << q->z << std::endl;
+    std::cout << " t component = " << q->t << std::endl;
+  }	
+}
+
+void opinterval(FourVector *q){
+if(q){
+    double iv = ((q->t)*(q->t) -(q->x)*(q->x) - (q->y)*(q->y) - (q->z)*(q->z));
+    std::cout << " the invariant interval is " << iv << std::endl;
+  }	
+}
+
+

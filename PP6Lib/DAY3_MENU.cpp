@@ -16,6 +16,10 @@ void day3_menu(){
     std::cout << "2) Invariant Interval" << std::endl;
     std::cout << "3) Boost in Z using structs" << std::endl;
     std::cout << "4) Invariant Interval using structs" << std::endl;
+    std::cout << "3) Boost in Z using structs" << std::endl;
+    std::cout << "4) Invariant Interval using structs" << std::endl;
+    std::cout << "5) Boost using opaque pointer" << std::endl;
+    std::cout << "6) Invariant using opaque pointer" << std::endl;
  
     std::cin >> op;
     
@@ -97,6 +101,44 @@ void day3_menu(){
       std::cout << " the invariant interval is " << res << std::endl;
       
     }
+     else if(op == '5'){
+       FourVector *q;
+       q = createFourVector();
+
+       std::cout << "Please enter the x component" << std::endl;
+       q->x = inputvalue();
+       std::cout << "Please enter the y component" << std::endl;
+       q->y = inputvalue();
+       std::cout << "Please enter the z component" << std::endl;
+       q->z = inputvalue();
+       std::cout << "Please enter the t component" << std::endl;
+       q->t = inputvalue();
+       std::cout << "Please enter the v component" << std::endl;
+       v = inputvalue();
+       
+       evalboostz(q,v);
+       destroyFourVector(q);
+      
+    }
+     else if(op == '6'){
+       FourVector *q;
+       q = createFourVector();
+
+       std::cout << "Please enter the x component" << std::endl;
+       q->x = inputvalue();
+       std::cout << "Please enter the y component" << std::endl;
+       q->y = inputvalue();
+       std::cout << "Please enter the z component" << std::endl;
+       q->z = inputvalue();
+       std::cout << "Please enter the t component" << std::endl;
+       q->t = inputvalue();
+
+       opinterval(q);
+       destroyFourVector(q);
+      
+    }
+
+    
 
   }
 }
