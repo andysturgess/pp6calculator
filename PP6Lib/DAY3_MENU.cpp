@@ -20,6 +20,7 @@ void day3_menu(){
     std::cout << "4) Invariant Interval using structs" << std::endl;
     std::cout << "5) Boost using opaque pointer" << std::endl;
     std::cout << "6) Invariant using opaque pointer" << std::endl;
+    std::cout << "=====================================" << std::endl;
  
     std::cin >> op;
     
@@ -123,6 +124,7 @@ void day3_menu(){
      else if(op == '6'){
        FourVector *q;
        q = createFourVector();
+       
 
        std::cout << "Please enter the x component" << std::endl;
        q->x = inputvalue();
@@ -133,7 +135,19 @@ void day3_menu(){
        std::cout << "Please enter the t component" << std::endl;
        q->t = inputvalue();
 
+       InvariantSign t = getInvariantSign(q);
        opinterval(q);
+
+       if(t == TIMELIKE){
+	 std::cout<< "TIMELIKE: causally connected!" << std::endl;
+       }
+       if(t == SPACELIKE){
+	 std::cout<< "SPACELIKE: not causally connected!" << std::endl;
+       }
+       if(t == LIGHTLIKE){
+	 std::cout<< "NULL: connected by lightlike world lines!" << std::endl;
+       }
+
        destroyFourVector(q);
       
     }

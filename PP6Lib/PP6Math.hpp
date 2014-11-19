@@ -44,13 +44,15 @@ struct FourVector{
   double t;
 };
 
-enum FourVectorMagSign{
+enum InvariantSign{
   SPACELIKE,
   TIMELIKE,
-  LIGHTLIKE
+  LIGHTLIKE,
+  UNDEFINED
 };
 
 FourVector* createFourVector();
+InvariantSign getInvariantSign(FourVector *q);
 void destroyFourVector(FourVector *&q);
 void fillFourVector(FourVector *q, double x, double y, double z, double t);
 void evalboostz(FourVector *q, double v);

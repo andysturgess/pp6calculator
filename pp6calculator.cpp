@@ -14,11 +14,14 @@ int main(){
     {
 
       std::cout << "PP6 CALCULATOR - Main Menu" << std::endl;
+      std::cout << "===============================" << std::endl;
       std::cout << "Which day would you like to access?" << std::endl;
       std::cout << "1) - Basic Mathematics" << std::endl;
       std::cout << "2) - Arrays etc." << std::endl;
       std::cout << "3) - structs etc. (hopefully!)" << std::endl;
       std::cout << "q) - Quit" << std::endl;
+      std::cout << "===============================" << std::endl;
+      
 
       std::cin >> day;
       if(!std::cin)

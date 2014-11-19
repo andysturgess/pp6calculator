@@ -201,8 +201,25 @@ void evalboostz(FourVector *q , double v){
 void opinterval(FourVector *q){
 if(q){
     double iv = ((q->t)*(q->t) -(q->x)*(q->x) - (q->y)*(q->y) - (q->z)*(q->z));
-    std::cout << " the invariant interval is " << iv << std::endl;
+    std::cout << "The invariant interval is " << iv << std::endl;
   }	
+}
+
+InvariantSign getInvariantSign(FourVector *q){
+  if(!q){
+    return UNDEFINED;
+  }
+
+  double iv = ((q->t)*(q->t) -(q->x)*(q->x) - (q->y)*(q->y) - (q->z)*(q->z));
+  if(iv > 0){
+    return TIMELIKE;
+  }
+  else if(iv < 0){
+    return SPACELIKE;
+  }
+  else{
+    return LIGHTLIKE;
+  }
 }
 
 

@@ -12,6 +12,7 @@ void day1_menu(){
 
   while(true){
     std::cout << "PP6Calulator - DAY 1 MENU" << std::endl;
+    std::cout << "=====================================" << std::endl;
     std::cout << "What would you like to do?" << std::endl;
     std::cout << "*  = multiplication." << std::endl;
     std::cout << "/  = division." << std::endl;
@@ -22,6 +23,7 @@ void day1_menu(){
     std::cout << "t  = length of a 3 vector." << std::endl;
     std::cout << "f  = length of a 4 vector." << std::endl;
     std::cout << "m  = invariant mass of two particles " << std::endl;
+    std::cout << "=====================================" << std::endl;
 
     std::cin >> op;
     if(!std::cin){

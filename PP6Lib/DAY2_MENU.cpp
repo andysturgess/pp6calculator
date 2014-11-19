@@ -19,11 +19,14 @@ void day2_menu(){
   while (true){
    
     std::cout << "PP6Calculator - DAY 2 MENU" << std::endl;
+    std::cout << "=============================================" << std::endl;
     std::cout << "What would you like to do?" << std::endl;
     std::cout << "s  = swap variables" << std::endl;
     std::cout << "b  = bubble sort variables" << std::endl;
     std::cout << "e  = AVG E and STDDEV of 100 random particles" << std::endl;
     std::cout << "g = read the data file ObservedParticles.dat" << std::endl;
+    std::cout << "=============================================" << std::endl;
+    
     std::cin >> op;
     if(!std::cin){
       std::cout<< "[ERR] Please input a valid operation!" << std::endl;
