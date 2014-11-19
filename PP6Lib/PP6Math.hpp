@@ -36,5 +36,16 @@ void swap(double& a, double&b);
 void Bubble(double array[]);
 std::pair<double,double> SPECTRUM();
 
+// Day three declarations
+struct FourVector{
+  const double x;
+  const double y;
+  const double z;
+  const double t;
+};
+
+void boostalongz(double x, double y, double& z, double& t, double v);
+void boostz(FourVector q, double v);
+double invint(FourVector q);
 
 #endif // PP6CALCULATOR_PP6MATH_HH
