@@ -51,7 +51,7 @@ std::pair<std::complex<double>,std::complex<double> > quadratic(std::complex<dou
 double vectorlength3(double a, double b, double c){
   double length_3 =std::sqrt( a*a + b*b +  c*c);
   return length_3;
-    }
+}
 
 double vectorlength4(double a, double b, double c, double d){
   double length_4 = d*d - a*a - b*b -c*c ;
@@ -112,11 +112,11 @@ std::pair<double,double> SPECTRUM(){
   double x_m_avg[100];
 
   for(int i = 0; i < 100; i++){
-     px[i] = rand()%100;
-     py[i] = rand()%100;
-     pz[i] = rand()%100;
-     M[i] =  rand()%100;
-     E[i] = std::sqrt(px[i]*px[i] + py[i]*py[i] + pz[i]*pz[i] + M[i]*M[i]);
+    px[i] = rand()%100;
+    py[i] = rand()%100;
+    pz[i] = rand()%100;
+    M[i] =  rand()%100;
+    E[i] = std::sqrt(px[i]*px[i] + py[i]*py[i] + pz[i]*pz[i] + M[i]*M[i]);
     total_E = total_E + E[i];
   }
   for(int i = 0; i < 100; i++){
@@ -199,7 +199,7 @@ void evalboostz(FourVector *q , double v){
 }
 
 void opinterval(FourVector *q){
-if(q){
+  if(q){
     double iv = ((q->t)*(q->t) -(q->x)*(q->x) - (q->y)*(q->y) - (q->z)*(q->z));
     std::cout << "The invariant interval is " << iv << std::endl;
   }	
@@ -222,4 +222,23 @@ InvariantSign getInvariantSign(FourVector *q){
   }
 }
 
+double FourVectorclass::interval() const{
+  double s = t*t -x*x -y*y -z*z;
+  return s;
 
+}
+
+void FourVectorclass::boost_z(double v){
+ double gamma = 1/(std::sqrt(1-v*v));
+  x = x;
+  y = y;
+  z = gamma*(z - v*t);
+  t = gamma*(t - v*z);
+
+  std::cout << "the results of the boost" << std::endl;
+  std::cout << " x component = " << x << std::endl;
+  std::cout << " y component = " << y << std::endl;
+  std::cout << " z component = " << z << std::endl;
+  std::cout << " t component = " << t << std::endl;
+
+}

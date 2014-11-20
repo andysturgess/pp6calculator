@@ -1,4 +1,3 @@
-
 #include "DAY3_MENU.hpp"
 #include <iostream>
 #include <limits>
@@ -20,6 +19,8 @@ void day3_menu(){
     std::cout << "4) Invariant Interval using structs" << std::endl;
     std::cout << "5) Boost using opaque pointer" << std::endl;
     std::cout << "6) Invariant using opaque pointer" << std::endl;
+    std::cout << "7) Boost using classes" << std::endl;
+    std::cout << "8) Invariant using classes " << std::endl;
     std::cout << "=====================================" << std::endl;
  
     std::cin >> op;
@@ -147,14 +148,41 @@ void day3_menu(){
        if(t == LIGHTLIKE){
 	 std::cout<< "NULL: connected by lightlike world lines!" << std::endl;
        }
-
-       destroyFourVector(q);
-      
+       destroyFourVector(q);  
     }
 
-    
+    if(op == '7'){
+      FourVectorclass q;
 
+       std::cout << "Please enter the x component" << std::endl;
+       q.x = inputvalue();
+       std::cout << "Please enter the y component" << std::endl;
+       q.y = inputvalue();
+       std::cout << "Please enter the z component" << std::endl;
+       q.z = inputvalue();
+       std::cout << "Please enter the t component" << std::endl;
+       q.t = inputvalue();
+       std::cout << "Please enter the velocity comp" << std::endl;
+       v = inputvalue();
+
+       q.boost_z(v);
+    }
+
+     if(op == '8'){
+      FourVectorclass q;
+
+       std::cout << "Please enter the x component" << std::endl;
+       q.x = inputvalue();
+       std::cout << "Please enter the y component" << std::endl;
+       q.y = inputvalue();
+       std::cout << "Please enter the z component" << std::endl;
+       q.z = inputvalue();
+       std::cout << "Please enter the t component" << std::endl;
+       q.t = inputvalue();
+       res = q.interval();
+       std::cout << "the invariant interval is " << res << std::endl;
+     }
   }
 }
 
-  
+

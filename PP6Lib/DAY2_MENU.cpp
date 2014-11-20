@@ -78,5 +78,3 @@ void day2_menu(){
     }
   }
 }
-
-   

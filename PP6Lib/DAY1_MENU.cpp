@@ -90,54 +90,54 @@ void day1_menu(){
     else if(op == 'x'){
       std::cout << "the standard form of quadratic equation is ax^2 + bx + c)" << std::endl;
 
-    bool pos = false; 
-    bool neg = false;
+      bool pos = false; 
+      bool neg = false;
 
-    // The two variables which are used for passing by reference
-    // Not really important; just another way of telling us if  
-    // we are dealing with imaginary solutions or not.
+      // The two variables which are used for passing by reference
+      // Not really important; just another way of telling us if  
+      // we are dealing with imaginary solutions or not.
 
-    std::cout << "Please enter a" << std::endl;
-    std::complex<double> m;
-    std::cin >> m;
-    if(!std::cin){
-      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-      continue;
-    }
+      std::cout << "Please enter a" << std::endl;
+      std::complex<double> m;
+      std::cin >> m;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
       
-    std::cout << "Please enter b" << std::endl;
-    std::complex<double> n;
-    std::cin >> n;
-    if(!std::cin){
-      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-      continue;
-    }
+      std::cout << "Please enter b" << std::endl;
+      std::complex<double> n;
+      std::cin >> n;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
       
-    std::cout << "Please enter c" << std::endl;
-    std::complex<double> o;
-    std::cin >> o;
-    if(!std::cin){
-      std::cerr<<"[ERR] Please enter a valid number" << std::endl;
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-      continue;
-    }
+      std::cout << "Please enter c" << std::endl;
+      std::complex<double> o;
+      std::cin >> o;
+      if(!std::cin){
+	std::cerr<<"[ERR] Please enter a valid number" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
       
       
-    ReturnQuadSols = quadratic(m,n,o,pos,neg);
-    if (pos == true) std::cout << " valid discriminant = non-imaginary solutions"
-			       << std::endl;
-    if (neg == true) std::cout << " invalid discriminant = imaginary solutions"
-			       << std::endl;
-    std::cout << " The form of the solution is (real,imaginary)" << std::endl;
-    std::cout << " for example, a solution like (-3 + 2i) & (-3 - 2i)" << std::endl;
-    std::cout << " Would appear as (-3,2) and (-3,-2)" << std::endl;
-    std::cout << " The two solutions for this quadratic equation are "
-	      << ReturnQuadSols.first << " and " << ReturnQuadSols.second << "\n" << std::endl;
+      ReturnQuadSols = quadratic(m,n,o,pos,neg);
+      if (pos == true) std::cout << " valid discriminant = non-imaginary solutions"
+				 << std::endl;
+      if (neg == true) std::cout << " invalid discriminant = imaginary solutions"
+				 << std::endl;
+      std::cout << " The form of the solution is (real,imaginary)" << std::endl;
+      std::cout << " for example, a solution like (-3 + 2i) & (-3 - 2i)" << std::endl;
+      std::cout << " Would appear as (-3,2) and (-3,-2)" << std::endl;
+      std::cout << " The two solutions for this quadratic equation are "
+		<< ReturnQuadSols.first << " and " << ReturnQuadSols.second << "\n" << std::endl;
     }
     
     else if(op == 't'){

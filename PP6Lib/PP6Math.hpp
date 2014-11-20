@@ -44,6 +44,16 @@ struct FourVector{
   double t;
 };
 
+class FourVectorclass{
+public:
+  double interval() const;
+  void boost_z(double v);
+  double x;
+  double y;
+  double z;
+  double t;
+};
+
 enum InvariantSign{
   SPACELIKE,
   TIMELIKE,
