@@ -259,7 +259,19 @@ void FourVectorclass::sett(double value) {
 }
 
 
+FourVectorclass operator+(const FourVectorclass& lhs, const FourVectorclass& rhs)
+{
+  FourVectorclass temp(lhs);
+  temp += rhs;
+  return temp;
+}
 
+FourVectorclass operator-(const FourVectorclass& lhs, const FourVectorclass& rhs)
+{
+  FourVectorclass temp(lhs);
+  temp -= rhs;
+  return temp;
+}
 
 
 double FourVectorclass::interval() const{

@@ -44,13 +44,25 @@ struct FourVector{
   double t;
 };
 
-class FourVectorclass{
+class FourVectorclass {
 public:
   //ctors
-  FourVectorclass(){}
+  FourVectorclass(): a(0) {}
+  FourVectorclass(double val) : a(val){}
   FourVectorclass(const double x_, const double y_, 
 		  const  double z_, const double t_);
   
+  ~FourVectorclass(){}
+
+  FourVectorclass& operator+=(const FourVectorclass& rhs)
+  {a += rhs.a; return *this;}
+
+  FourVectorclass& operator-=(const FourVectorclass& rhs)
+  {a -= rhs.a; return *this;}
+
+  FourVectorclass& operator=(const FourVectorclass& rhs)
+  {if (&rhs != this) {a = rhs.a;} return *this;}
+
   //member functions
   double getx(), gety(), getz(), gett();
   void setx(double value), sety(double value), setz(double value);
@@ -58,14 +70,18 @@ public:
   double interval() const;
   void boost_z(double v);
 
-
 private:
   //member variables
   double x;
   double y;
   double z;
+  double a;
   double t;
 };
+
+FourVectorclass operator+(const FourVectorclass& lhs, const FourVectorclass& rhs);
+
+  FourVectorclass operator-(const FourVectorclass& lhs, const FourVectorclass& rhs);
 
 enum InvariantSign{
   SPACELIKE,

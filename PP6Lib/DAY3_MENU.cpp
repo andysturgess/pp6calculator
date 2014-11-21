@@ -9,7 +9,7 @@ void day3_menu(){
   char op('\0');
   
   while(true){
-    std::cout << "PP6Calulator - DAY 3 MENU" << std::endl;
+    std::cout << "PP6Calculator - DAY 3 MENU" << std::endl;
     std::cout << "=======================================" << std::endl;
     std::cout << "1) Boost in Z direction" << std::endl;
     std::cout << "2) Invariant Interval" << std::endl;
@@ -21,6 +21,7 @@ void day3_menu(){
     std::cout << "6) Invariant using opaque pointer" << std::endl;
     std::cout << "7) Boost using constructors" << std::endl;
     std::cout << "8) Invariant using constructors" << std::endl;
+    std::cout << "9) Operator overloading!" << std::endl;
     std::cout << "=====================================" << std::endl;
  
     std::cin >> op;
@@ -169,6 +170,28 @@ void day3_menu(){
        res = g.interval();
        std::cout << "interval: " << res << std::endl;
      }
+
+     
+     if(op == '9'){
+      
+       std::cout << "Enter x " << std::endl;
+       a = inputvalue();
+       std::cout << "Enter y " << std::endl;
+       b = inputvalue();
+       std::cout << "Enter z " << std::endl;
+       c = inputvalue();
+       std::cout << "Enter t " << std::endl;
+       d = inputvalue();
+       
+       
+       FourVectorclass g = FourVectorclass(a,b,c,d);
+       FourVectorclass l = g
+       std::cout << "gf.getx() is " << l.getx() << std::endl;
+       std::cout << "gf.gety() is " << l.gety() << std::endl;
+       std::cout << "gf.getz() is " << l.getz() << std::endl;
+       std::cout << "gf.gett() is " << l.gett() << std::endl;
+     }
+
 
 
   }
