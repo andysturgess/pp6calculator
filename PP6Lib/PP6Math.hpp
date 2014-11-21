@@ -46,8 +46,19 @@ struct FourVector{
 
 class FourVectorclass{
 public:
+  //ctors
+  FourVectorclass(){}
+  FourVectorclass(const double x_, const double y_, 
+		  const  double z_, const double t_);
+  
+  //member functions
+  double getx(), gety(), getz(), gett();
+  void setx(double value), sety(double value), setz(double value);
+  void sett(double value);
   double interval() const;
   void boost_z(double v);
+
+  //member variables
   double x;
   double y;
   double z;

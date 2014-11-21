@@ -78,7 +78,6 @@ double inputvalue(){
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin >> value;
   }
-
   return value;
 }
 
@@ -221,6 +220,47 @@ InvariantSign getInvariantSign(FourVector *q){
     return LIGHTLIKE;
   }
 }
+
+FourVectorclass::FourVectorclass(const double x_, const double y_,
+				 const double z_, const double t_)
+  : x(x_), y(y_), z(z_), t(t_)
+{}
+
+double FourVectorclass::getx() {
+  return x;
+}
+
+double FourVectorclass::gety() {
+  return y;
+}
+
+double FourVectorclass::getz() {
+  return z;
+}
+
+double FourVectorclass::gett() {
+  return t;
+}
+
+void FourVectorclass::setx(double value) {
+  x = value;
+}
+
+void FourVectorclass::sety(double value) {
+  y = value;
+}
+
+void FourVectorclass::setz(double value) {
+  z = value;
+}
+
+void FourVectorclass::sett(double value) {
+  t = value;
+}
+
+
+
+
 
 double FourVectorclass::interval() const{
   double s = t*t -x*x -y*y -z*z;

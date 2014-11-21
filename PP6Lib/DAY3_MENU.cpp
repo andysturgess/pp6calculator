@@ -21,6 +21,8 @@ void day3_menu(){
     std::cout << "6) Invariant using opaque pointer" << std::endl;
     std::cout << "7) Boost using classes" << std::endl;
     std::cout << "8) Invariant using classes " << std::endl;
+    std::cout << "9) Boost using constructors" << std::endl;
+    std::cout << "10) Invariant using constructors" << std::endl;
     std::cout << "=====================================" << std::endl;
  
     std::cin >> op;
@@ -153,7 +155,6 @@ void day3_menu(){
 
     if(op == '7'){
       FourVectorclass q;
-
        std::cout << "Please enter the x component" << std::endl;
        q.x = inputvalue();
        std::cout << "Please enter the y component" << std::endl;
@@ -182,6 +183,26 @@ void day3_menu(){
        res = q.interval();
        std::cout << "the invariant interval is " << res << std::endl;
      }
+     if(op == '9'){
+      
+       std::cout << "Enter x " << std::endl;
+       a = inputvalue();
+       std::cout << "Enter y " << std::endl;
+       b = inputvalue();
+       std::cout << "Enter z " << std::endl;
+       c = inputvalue();
+       std::cout << "Enter t " << std::endl;
+       d = inputvalue();
+       std::cout << "Enter v " << std::endl;
+       v = inputvalue();
+       
+       FourVectorclass g = FourVectorclass(a,b,c,d);
+       g.boost_z(v);
+       res = g.interval();
+       std::cout << "interval: " << res << std::endl;
+     }
+
+
   }
 }
 
