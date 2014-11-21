@@ -19,10 +19,8 @@ void day3_menu(){
     std::cout << "4) Invariant Interval using structs" << std::endl;
     std::cout << "5) Boost using opaque pointer" << std::endl;
     std::cout << "6) Invariant using opaque pointer" << std::endl;
-    std::cout << "7) Boost using classes" << std::endl;
-    std::cout << "8) Invariant using classes " << std::endl;
-    std::cout << "9) Boost using constructors" << std::endl;
-    std::cout << "10) Invariant using constructors" << std::endl;
+    std::cout << "7) Boost using constructors" << std::endl;
+    std::cout << "8) Invariant using constructors" << std::endl;
     std::cout << "=====================================" << std::endl;
  
     std::cin >> op;
@@ -153,37 +151,7 @@ void day3_menu(){
        destroyFourVector(q);  
     }
 
-    if(op == '7'){
-      FourVectorclass q;
-       std::cout << "Please enter the x component" << std::endl;
-       q.x = inputvalue();
-       std::cout << "Please enter the y component" << std::endl;
-       q.y = inputvalue();
-       std::cout << "Please enter the z component" << std::endl;
-       q.z = inputvalue();
-       std::cout << "Please enter the t component" << std::endl;
-       q.t = inputvalue();
-       std::cout << "Please enter the velocity comp" << std::endl;
-       v = inputvalue();
-
-       q.boost_z(v);
-    }
-
-     if(op == '8'){
-      FourVectorclass q;
-
-       std::cout << "Please enter the x component" << std::endl;
-       q.x = inputvalue();
-       std::cout << "Please enter the y component" << std::endl;
-       q.y = inputvalue();
-       std::cout << "Please enter the z component" << std::endl;
-       q.z = inputvalue();
-       std::cout << "Please enter the t component" << std::endl;
-       q.t = inputvalue();
-       res = q.interval();
-       std::cout << "the invariant interval is " << res << std::endl;
-     }
-     if(op == '9'){
+     if(op == '7'){
       
        std::cout << "Enter x " << std::endl;
        a = inputvalue();

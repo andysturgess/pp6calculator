@@ -58,6 +58,8 @@ public:
   double interval() const;
   void boost_z(double v);
 
+
+private:
   //member variables
   double x;
   double y;
