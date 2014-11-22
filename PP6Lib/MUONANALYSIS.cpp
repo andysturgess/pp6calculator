@@ -67,7 +67,7 @@ void muon_pairs(){
 				- ((mupy[i] + amupy[j])*(mupy[i] + amupy[j]))
 				- ((mupz[i] + amupz[j])* (mupz[i] + amupz[j]))) ;
 
-      std::cout << Inv_2D[i][j] << " : GeV for muon " << mu_event[i] << " and anti muon " << amu_event[j] << std::endl; 
+     
       int D = N*i + j;
       Inv[D] =  std::sqrt( ((muE[i] + amuE[j])*(muE[i] + amuE[j]))
 			   - ((mupx[i] + amupx[j])*(mupx[i] + amupx[j]))

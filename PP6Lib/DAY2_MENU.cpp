@@ -13,7 +13,6 @@
 void day2_menu(){
   double a(0), b(0);
   double bubble_array[5];
-  std::pair<double,double> ReturnAVGandSTDDEV;
   char op('\0');
 
   while (true){
@@ -67,10 +66,7 @@ void day2_menu(){
     }
     
     else if(op == 'e'){
-      ReturnAVGandSTDDEV = SPECTRUM();
-      std::cout << "Average energy is (" << ReturnAVGandSTDDEV.first
-		<< "+/-" << ReturnAVGandSTDDEV.second << ") GeV"
-		<< std::endl;
+      SPECTRUM();
     }
     
     else if(op == 'g'){

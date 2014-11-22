@@ -99,35 +99,37 @@ void Bubble(double array[]){
 
 }
 
-std::pair<double,double> SPECTRUM(){
-  std::pair<double,double> AVGE_STDDEV;
-  double total_E;
-  double total_dev;
-  double px[100];
-  double py[100];
-  double pz[100];
+void SPECTRUM(){
+  double p_x[100];
+  double p_y[100];
+  double p_z[100];
   double M[100];
   double E[100];
-  double x_m_avg[100];
-
+  double total_E = 0;
+  double ximinmu[100];
+  double stddev = 0;
+  
   for(int i = 0; i < 100; i++){
-    px[i] = rand()%100;
-    py[i] = rand()%100;
-    pz[i] = rand()%100;
-    M[i] =  rand()%100;
-    E[i] = std::sqrt(px[i]*px[i] + py[i]*py[i] + pz[i]*pz[i] + M[i]*M[i]);
+    p_x[i] = rand()%100;
+    p_y[i] = rand()%100;
+    p_z[i] = rand()%100;
+    M[i] = rand()%100;
+    E[i] = std::sqrt(p_x[i]*p_x[i] + p_y[i]*p_y[i] + p_z[i]*p_z[i] + M[i]*M[i]);
+  }
+			  
+  for(int i = 0; i < 100; i++){
+    std::cout<< " E for particle " << i << " is " << E[i] << " GeV" <<std::endl;
     total_E = total_E + E[i];
-  }
-  for(int i = 0; i < 100; i++){
-    x_m_avg[i] = (E[i] - (total_E/100.))*(E[i] - (total_E/100.));
-    total_dev = total_dev + x_m_avg[i];
+   
   }
 
-  double AVGE = (total_E / 100.) ;
-  double STDDEV = std::sqrt(total_dev / 100.);
-  AVGE_STDDEV.first = AVGE;
-  AVGE_STDDEV.second = STDDEV;
-  return AVGE_STDDEV;
+  for(int i = 0; i < 100; i++){
+    ximinmu[i] = (E[i] - total_E/100.)*(E[i] - total_E/100.);
+    stddev = stddev + ximinmu[i];
+  }
+  
+  std::cout << "The average energy is (" << total_E/100. << "+/-" 
+	    << std::sqrt(stddev/100.) << ") GeV, for 100 random particles" << std::endl;
 }
 
 // - Day Three

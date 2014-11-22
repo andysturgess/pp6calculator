@@ -34,7 +34,7 @@ double invmass(double a, double b, double c, double d, double theta);
 double inputvalue();
 void swap(double& a, double&b);
 void Bubble(double array[]);
-std::pair<double,double> SPECTRUM();
+void SPECTRUM();
 
 // Day three declarations
 struct FourVector{

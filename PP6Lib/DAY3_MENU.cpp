@@ -185,7 +185,7 @@ void day3_menu(){
        
        
        FourVectorclass g = FourVectorclass(a,b,c,d);
-       FourVectorclass l = g
+       FourVectorclass l = g;
        std::cout << "gf.getx() is " << l.getx() << std::endl;
        std::cout << "gf.gety() is " << l.gety() << std::endl;
        std::cout << "gf.getz() is " << l.getz() << std::endl;
