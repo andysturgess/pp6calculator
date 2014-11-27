@@ -62,9 +62,6 @@ public:
 
   //Member Functions
   
-  //getting length of threevector
-  double length();
-  
   //getting/setting the components of the vector
   double getX();
   double getY();

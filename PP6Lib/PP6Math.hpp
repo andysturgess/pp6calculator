@@ -1,6 +1,6 @@
-//! \file   PP6Math.hpp
+//! \file PP6Math.hpp
 //! \author Andy Sturgess
-//! \brief  Declarations for pp6calculator - day one, day two
+//! \brief Declarations for pp6calculator - day one, day two
 
 #include<utility>
 #include<complex>
@@ -8,10 +8,8 @@
 #ifndef PP6CALCULATOR_PP6MATH_HH
 #define PP6CALCULATOR_PP6MATH_HH
 
-
 // Day One Declarations
 // ----------------------------------------------------------------
-
 // Arithmetic
 // ----------------------------------------------------------------
 
@@ -30,66 +28,20 @@ double vectorlength4(double a, double b, double c, double d);
 double invmass(double a, double b, double c, double d, double theta);
 
 // Day two declarations
-
+//----------------------------------------------------------------
 double inputvalue();
 void swap(double& a, double&b);
 void Bubble(double array[]);
 void SPECTRUM();
 
 // Day three declarations
-struct FourVector{
+//-----------------------------------------------------------------
+struct FourVec{
   double x;
   double y;
   double z;
   double t;
 };
-
-class FourVectorclass {
-public:
-  //ctors
-  FourVectorclass(): x(0) {}
-  FourVectorclass(double val) : x(val){}
-  FourVectorclass(const double x_, const double y_, 
-		  const  double z_, const double t_);
-  
-  ~FourVectorclass(){}
-
-  FourVectorclass& operator+=(const FourVectorclass& rhs){
-    x += rhs.x;
-    y += rhs.y;
-    z += rhs.z;
-    return *this;
-  }
-
-  FourVectorclass& operator-=(const FourVectorclass& rhs){
-    x -= rhs.x;
-    y -= rhs.y;
-    z -= rhs.z;
-    return *this;
-  }
-
-  FourVectorclass& operator=(const FourVectorclass& rhs)
-  {if (&rhs != this) {x = rhs.a;} return *this;}
-
-  //member functions
-  double getx(), gety(), getz(), gett();
-  void setx(double value), sety(double value), setz(double value);
-  void sett(double value);
-  double interval() const;
-  void boost_z(double v);
-
-private:
-  //member variables
-  double x;
-  double y;
-  double z;
-  double a;
-  double t;
-};
-
-FourVectorclass operator+(const FourVectorclass& lhs, const FourVectorclass& rhs);
-
-  FourVectorclass operator-(const FourVectorclass& lhs, const FourVectorclass& rhs);
 
 enum InvariantSign{
   SPACELIKE,
@@ -98,15 +50,13 @@ enum InvariantSign{
   UNDEFINED
 };
 
-FourVector* createFourVector();
-InvariantSign getInvariantSign(FourVector *q);
-void destroyFourVector(FourVector *&q);
-void fillFourVector(FourVector *q, double x, double y, double z, double t);
-void evalboostz(FourVector *q, double v);
-void opinterval(FourVector *q);
-
+FourVec* createFourVec();
+InvariantSign getInvariantSign(FourVec *q);
+void destroyFourVec(FourVec *&q);
+void fillFourVec(FourVec *q, double x, double y, double z, double t);
+void evalboostz(FourVec *q, double v);
+void opinterval(FourVec *q);
 void boostalongz(double x, double y, double& z, double& t, double v);
-void boostz(FourVector q, double v);
-double invint(FourVector q);
-
+void boostz(FourVec q, double v);
+double invint(FourVec q);
 #endif // PP6CALCULATOR_PP6MATH_HH

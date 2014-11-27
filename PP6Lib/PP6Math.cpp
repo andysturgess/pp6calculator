@@ -1,7 +1,5 @@
 #include "PP6Math.hpp"
-
 // Standard Library
-
 #include <iostream>
 #include <cmath>
 #include <limits>
@@ -10,9 +8,9 @@
 #include <vector>
 #include <cstdlib>
 
+
 //---------------------------------------------------------------------
 // Function Definitions
-
 double add(double a,double b){
   return a + b;
 }
@@ -20,12 +18,15 @@ double add(double a,double b){
 double subtract(double a, double b){
   return a - b;
 }
+
 double multiply(double a,double b){
   return a * b;
 }
+
 double divide(double a, double b){
   return a / b;
 }
+
 double intercept(double a, double b, double c, double d){
   double gradient = (d-b)/(c-a);
   double x_intercept = b - gradient*a;
@@ -34,7 +35,7 @@ double intercept(double a, double b, double c, double d){
 
 std::pair<std::complex<double>,std::complex<double> > quadratic(std::complex<double> m,std::complex<double> n, std::complex<double> o, bool& pos, bool& neg){
   std::complex<double> discriminant = n * n - 4.0*m*o;
-  if (std::real(discriminant) >= 0.){ 
+  if (std::real(discriminant) >= 0.){
     pos = true;
   }
   else{
@@ -44,12 +45,12 @@ std::pair<std::complex<double>,std::complex<double> > quadratic(std::complex<dou
   std::complex<double> x1 = (-n + std::sqrt(discriminant))/(2.*m);
   std::complex<double> x2 = (-n - std::sqrt(discriminant))/(2.*m);
   solutions.first = x1;
-  solutions.second = x2; 
+  solutions.second = x2;
   return solutions;
 }
 
 double vectorlength3(double a, double b, double c){
-  double length_3 =std::sqrt( a*a + b*b +  c*c);
+  double length_3 =std::sqrt( a*a + b*b + c*c);
   return length_3;
 }
 
@@ -96,7 +97,6 @@ void Bubble(double array[]){
       }
     }
   }
-
 }
 
 void SPECTRUM(){
@@ -108,7 +108,6 @@ void SPECTRUM(){
   double total_E = 0;
   double ximinmu[100];
   double stddev = 0;
-  
   for(int i = 0; i < 100; i++){
     p_x[i] = rand()%100;
     p_y[i] = rand()%100;
@@ -116,19 +115,15 @@ void SPECTRUM(){
     M[i] = rand()%100;
     E[i] = std::sqrt(p_x[i]*p_x[i] + p_y[i]*p_y[i] + p_z[i]*p_z[i] + M[i]*M[i]);
   }
-			  
   for(int i = 0; i < 100; i++){
     std::cout<< " E for particle " << i << " is " << E[i] << " GeV" <<std::endl;
     total_E = total_E + E[i];
-   
   }
-
   for(int i = 0; i < 100; i++){
     ximinmu[i] = (E[i] - total_E/100.)*(E[i] - total_E/100.);
     stddev = stddev + ximinmu[i];
   }
-  
-  std::cout << "The average energy is (" << total_E/100. << "+/-" 
+  std::cout << "The average energy is (" << total_E/100. << "+/-"
 	    << std::sqrt(stddev/100.) << ") GeV, for 100 random particles" << std::endl;
 }
 
@@ -142,28 +137,25 @@ void boostalongz(double x, double y, double& z, double& t, double v){
   t = gamma*(t - v*z);
 }
 
-void boostz(FourVector q, double v){
+void boostz(FourVec q, double v){
   double gamma = 1/(std::sqrt(1-v*v));
   q.x = q.x;
   q.y = q.y;
   q.z = gamma*((q.z) - v*(q.t));
   q.t = gamma*((q.t) - v*(q.z));
- 
   std::cout << "the results of the boost" << std::endl;
   std::cout << " x component = " << q.x << std::endl;
   std::cout << " y component = " << q.y << std::endl;
   std::cout << " z component = " << q.z << std::endl;
-  std::cout << " t component = " << q.t << std::endl;	  
+  std::cout << " t component = " << q.t << std::endl;
 }
 
-double invint(FourVector q){
-  double interval =  (q.t)*(q.t)-(q.x)*(q.x) -  (q.y)*(q.y) - (q.z)*(q.z); 
+double invint(FourVec q){
+  double interval = (q.t)*(q.t)-(q.x)*(q.x) - (q.y)*(q.y) - (q.z)*(q.z);
   return interval;
 }
 
-
-
-void fillFourVector(FourVector *q, double &x, double &y, double &z, double &t){
+void fillFourVec(FourVec *q, double &x, double &y, double &z, double &t){
   if(q){
     q->x=x;
     q->y=y;
@@ -172,45 +164,43 @@ void fillFourVector(FourVector *q, double &x, double &y, double &z, double &t){
   }
 }
 
-FourVector* createFourVector(){
-  return new FourVector;
+FourVec* createFourVec(){
+  return new FourVec;
 }
 
-void destroyFourVector(FourVector *&q){
+void destroyFourVec(FourVec *&q){
   if(q){
     delete q;
     q = 0;
   }
 }
 
-void evalboostz(FourVector *q , double v){
+void evalboostz(FourVec *q , double v){
   if(q){
     double gamma = 1/(std::sqrt(1-v*v));
     q->x = q->x;
     q->y = q->y;
     q->z = gamma*((q->z) - v*(q->t));
     q->t = gamma*((q->t) - v*(q->z));
- 
     std::cout << "the results of the boost" << std::endl;
     std::cout << " x component = " << q->x << std::endl;
     std::cout << " y component = " << q->y << std::endl;
     std::cout << " z component = " << q->z << std::endl;
     std::cout << " t component = " << q->t << std::endl;
-  }	
+  }
 }
 
-void opinterval(FourVector *q){
+void opinterval(FourVec *q){
   if(q){
     double iv = ((q->t)*(q->t) -(q->x)*(q->x) - (q->y)*(q->y) - (q->z)*(q->z));
     std::cout << "The invariant interval is " << iv << std::endl;
-  }	
+  }
 }
 
-InvariantSign getInvariantSign(FourVector *q){
+InvariantSign getInvariantSign(FourVec *q){
   if(!q){
     return UNDEFINED;
   }
-
   double iv = ((q->t)*(q->t) -(q->x)*(q->x) - (q->y)*(q->y) - (q->z)*(q->z));
   if(iv > 0){
     return TIMELIKE;
@@ -223,76 +213,3 @@ InvariantSign getInvariantSign(FourVector *q){
   }
 }
 
-FourVectorclass::FourVectorclass(const double x_, const double y_,
-				 const double z_, const double t_)
-  : x(x_), y(y_), z(z_), t(t_)
-{}
-
-double FourVectorclass::getx() {
-  return x;
-}
-
-double FourVectorclass::gety() {
-  return y;
-}
-
-double FourVectorclass::getz() {
-  return z;
-}
-
-double FourVectorclass::gett() {
-  return t;
-}
-
-void FourVectorclass::setx(double value) {
-  x = value;
-}
-
-void FourVectorclass::sety(double value) {
-  y = value;
-}
-
-void FourVectorclass::setz(double value) {
-  z = value;
-}
-
-void FourVectorclass::sett(double value) {
-  t = value;
-}
-
-
-FourVectorclass operator+(const FourVectorclass& lhs, const FourVectorclass& rhs)
-{
-  FourVectorclass temp(lhs);
-  temp += rhs;
-  return temp;
-}
-
-FourVectorclass operator-(const FourVectorclass& lhs, const FourVectorclass& rhs)
-{
-  FourVectorclass temp(lhs);
-  temp -= rhs;
-  return temp;
-}
-
-
-double FourVectorclass::interval() const{
-  double s = t*t -x*x -y*y -z*z;
-  return s;
-
-}
-
-void FourVectorclass::boost_z(double v){
- double gamma = 1/(std::sqrt(1-v*v));
-  x = x;
-  y = y;
-  z = gamma*(z - v*t);
-  t = gamma*(t - v*z);
-
-  std::cout << "the results of the boost" << std::endl;
-  std::cout << " x component = " << x << std::endl;
-  std::cout << " y component = " << y << std::endl;
-  std::cout << " z component = " << z << std::endl;
-  std::cout << " t component = " << t << std::endl;
-
-}
