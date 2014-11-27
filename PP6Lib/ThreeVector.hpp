@@ -10,78 +10,55 @@
 
 class ThreeVector{
 public:
-  //constructors - Default
+
+  //! Default ctor
   ThreeVector();
-
-  //constructor - This has values
-  ThreeVector(const double x_, const double y_, const double z_);
   
-  //op overloading - equals;
- 
-  //op overloading - adding three vector to this
-  ThreeVector& operator+=(const ThreeVector& rhs){
-    x += rhs.x;
-    y += rhs.y;
-    z += rhs.z;
-    return *this;
-  }
-
-  //op overloading - subtract a three vector from this
-  ThreeVector& operator-=(const ThreeVector& rhs){
-    x -= rhs.x;
-    y -= rhs.y;
-    z -= rhs.z;
-    return *this;
-  }
+  //! Constructor with values
+  ThreeVector(const double x, const double y, const double z);
   
-  //op overloading - multiply vector elements;
-  ThreeVector& operator*=(const ThreeVector& rhs){
-    x *= rhs.x;
-    y *= rhs.y;
-    z *= rhs.z;
-    return *this;
-  }
+  //! Add a vector
+  ThreeVector& operator+=(const ThreeVector& rhs);
 
-  //op overloading - divide vector elements;
-  ThreeVector& operator/=(const ThreeVector&  rhs){
-    x /= rhs.x;
-    y /= rhs.y;
-    z /= rhs.z;
-    return *this;
-  }
-
-  ThreeVector& operator=(const ThreeVector& rhs){
-    if(&rhs != this){
-      x = rhs.x;
-      y = rhs.y;
-      z = rhs.z;
-    }
-    return *this;
-  }
+  //! Subtract a vector
+  ThreeVector& operator-=(const ThreeVector& rhs);
   
+  //! Multiply vector elements
+  ThreeVector& operator*=(const double rhs);
 
-  //Member Functions
-  
-  //getting/setting the components of the vector
-  double getX();
-  double getY();
-  double getZ();
-  void setX(double value);
-  void setY(double value);
-  void setZ(double value);
-  double three_length();
+  //! Divide vector elements
+  ThreeVector& operator/=(const double rhs);
 
-private:
-  double x;
-  double y;
-  double z;
-  double l;  // the current length!
+  //! Length of this vector
+  double length() const;
+
+   //! get t, x, y, z components of vector
+  double getX() const {return x_;}
+  double getY() const {return y_;}
+  double getZ() const {return z_;}
+
+  //! set t, x, y, z components of vector
+  void setX(const double x);
+  void setY(const double y);
+  void setZ(const double z);
+
+  private:
+  //! recompute interval whenever components change
+  void compute_length();
+ private:
+  //! member variables
+  double x_;
+  double y_;
+  double z_;
+  double l_; // current length
 };
 
 ThreeVector operator+(const ThreeVector& lhs, const ThreeVector& rhs);
 ThreeVector operator-(const ThreeVector& lhs, const ThreeVector& rhs);
-ThreeVector operator*(const ThreeVector& lhs, const ThreeVector& rhs);
-ThreeVector operator/(const ThreeVector& lhs, const ThreeVector& rhs);
-double ScalarProd( ThreeVector &a,  ThreeVector &b);
+ThreeVector operator*(const ThreeVector& lhs, const double rhs);
+ThreeVector operator*(const double lhs, const ThreeVector& rhs);
+ThreeVector operator/(const ThreeVector& lhs, const double rhs);
+
+double scalarProduct(const ThreeVector& a, const ThreeVector& b);
 
 #endif // THREEVECTOR_HH

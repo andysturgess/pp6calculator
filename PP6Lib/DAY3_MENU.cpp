@@ -2,29 +2,44 @@
 #include <iostream>
 #include <limits>
 #include "PP6Math.hpp"
-#include "ThreeVector.hpp"
 #include "FourVector.hpp"
 
+FourVector* userCreateFourVector(){
+  double it(0), ix(0), iy(0), iz(0);
+
+  // Ask user for vector components
+  std::cout << "Enter the t-component: ";
+  it = inputvalue();
+  std::cout << "Enter the x-component: ";
+  ix = inputvalue();
+  std::cout << "Enter the y-component: ";
+  iy = inputvalue();
+  std::cout << "Enter the z-component: ";
+  iz = inputvalue();
+
+  return createFourVector(it, ix, iy, iz);
+}
+
 void day3_menu(){
-  double a(0), b(0), c(0), d(0), e(0), f(0), h(0), s(0), v(0);
+  double a(0), b(0), c(0), d(0), v(0);
+  FourVector *Vec_one(0); 
+//*Vec_two(0);
   double res(0);
   char op('\0');
+  char cop('\0');
 
   while(true){
     std::cout << "PP6Calculator - DAY 3 MENU" << std::endl;
     std::cout << "=======================================" << std::endl;
+    std::cout << "================STRUCTS================" << std::endl;
     std::cout << "1) Boost in Z direction" << std::endl;
     std::cout << "2) Invariant Interval" << std::endl;
     std::cout << "3) Boost in Z using structs" << std::endl;
     std::cout << "4) Invariant Interval using structs" << std::endl;
-    std::cout << "3) Boost in Z using structs" << std::endl;
-    std::cout << "4) Invariant Interval using structs" << std::endl;
-    std::cout << "5) Boost using opaque pointer" << std::endl;
-    std::cout << "6) Invariant using opaque pointer" << std::endl;
-    std::cout << "7) Boost using constructors" << std::endl;
-    std::cout << "a) Using threevector class" << std::endl;
-    std::cout << "b) Using FourVector class" << std::endl;
+    std::cout << "5) Boost in Z using structs" << std::endl;
+    std::cout << "6) Invariant Interval using structs" << std::endl;
     std::cout << "=====================================" << std::endl;
+    std::cout << "=====PRESS 'C' FOR CLASSES MENU======" << std::endl;
     std::cin >> op;
 
     if(!std::cin){
@@ -139,132 +154,40 @@ void day3_menu(){
 	std::cout<< "NULL: connected by lightlike world lines!" << std::endl;
       }
       destroyFourVec(q);
+
     }
-
-    if(op == '7'){
-      std::cout << "Enter x " << std::endl;
-      a = inputvalue();
-      std::cout << "Enter y " << std::endl;
-      b = inputvalue();
-      std::cout << "Enter z " << std::endl;
-      c = inputvalue();
-      std::cout << "Enter t " << std::endl;
-      d = inputvalue();
-      std::cout << "Enter v " << std::endl;
-      v = inputvalue();
-      FourVector g = FourVector(a,b,c,d);
-      g.boost_z(v);
-      res = g.interval();
-      std::cout << "interval: " << res << std::endl;
-    }
-
-    if(op == 's'){
-      std::cout<< "ThreeVector 1" << std::endl;
-      std::cout << "Enter x " << std::endl;
-      a = inputvalue();
-      std::cout << "Enter y " << std::endl;
-      b = inputvalue();
-      std::cout << "Enter z " << std::endl;
-      c = inputvalue();
-      std::cout<< "ThreeVector 1" << std::endl;
-      std::cout << "Enter x " << std::endl;
-      d = inputvalue();
-      std::cout << "Enter y " << std::endl;
-      e = inputvalue();
-      std::cout << "Enter z " << std::endl;
-      f = inputvalue();
-
-      ThreeVector g = ThreeVector(a,b,c);
-      ThreeVector l = ThreeVector(d,e,f);
-      ThreeVector add = l+g;
-      ThreeVector sub = l-g;
-      ThreeVector mul = l*g;
-      ThreeVector div = l/g;
-      res = ScalarProd(g,l);
-      double l1= std::sqrt( g.three_length() );
-      double l2= std::sqrt( l.three_length() );
-      std::cout << "The Three length of Vector 1 is " << l1 << std::endl;
-      std::cout << "The Three length of Vector 2 is " << l2 << std::endl;
-      std::cout << "The Scalar Product of 1 and 2 " << res << std::endl;
-      std::cout << "The result of adding these vectors ("
-		<< add.getX() << "," << add.getY() << ","
-		<< add.getZ() << ")" << std::endl;
-      std::cout << "The result of subtracting these vectors ("
-		<< sub.getX() << ","<< sub.getY() << ","
-		<< sub.getZ() << ")" << std::endl;
-      std::cout << "The result of multiplying these vectors ("
-		<< mul.getX() << "," << mul.getY() << ","
-		<< mul.getZ() << ")" << std::endl;
-      std::cout << "The result of dividing these vectors ("
-		<< div.getX() << "," << div.getY() << ","
-		<< div.getZ() << ")" << std::endl;
-    }
-
-    if(op == 'b'){
-      std::cout<< "FourVector 1" << std::endl;
-      std::cout << "Enter x " << std::endl;
-      a = inputvalue();
-      std::cout << "Enter y " << std::endl;
-      b = inputvalue();
-      std::cout << "Enter z " << std::endl;
-      c = inputvalue();
-      std::cout << "Enter t" << std::endl;
-      d = inputvalue();
-
-      std::cout<< "FourVector 2" << std::endl;
-      std::cout << "Enter x " << std::endl;
-      e = inputvalue();
-      std::cout << "Enter y " << std::endl;
-      f = inputvalue();
-      std::cout << "Enter z " << std::endl;
-      s = inputvalue();
-      std::cout << "Enter t" << std::endl;
-      h = inputvalue();
-
-      
+    //=====================================================================
+    // CLASSES SECTION : Completely changed; couldn't find solutions to bugs!
+    // Changed to follow Ben Morgan's solutions for 3,4Vector.cpp/hpp
+    //=====================================================================
+  
+    if(op =='c'){
      
-      FourVector g = FourVector(a,b,c,d);
-      FourVector l = FourVector(e,f,s,h);
-      FourVector add = l+g;
-      FourVector sub = l-g;
-      FourVector mul = l*g;
-      FourVector div = l/g;
+      std::cout << "PP6Calculator - DAY 3 MENU" << std::endl;
+      std::cout << "=======================================" << std::endl;
+      std::cout << "==============CLASSES==================" << std::endl;
+      std::cout << "1) Create a FourVector, calc interval " << std::endl;
+      std::cout << "2) Create and Boost a four vector " << std::endl;
+      std::cout << "3) Do numerical operations with two vectors" << std::endl;
+      std::cout << "q) Quit." << std::endl;
+      
+      std::cin >> cop;
+      
+      if(!std::cin){
+	std::cerr << "[ERR] Please enter a valid operation" << std::endl;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	continue;
+      }
 
-      
-      d = FourVector::CausalType FourVector::getCausalType(g);
-      if( == TIMEL){
-	std::cout<< "TIMELIKE: causally connected!" << std::endl;
-      }
-      if(d == SPACEL){
-	std::cout<< "SPACELIKE: not causally connected!" << std::endl;
-      }
-      if(d == LIGHTL){
-	std::cout<< "NULL: connected by lightlike world lines!" << std::endl;
-      }
-      
-      
-      double l1=  g.interval();
-      double l2=  l.interval();
-      std::cout << "The Four length of Vector 1 is " << l1 << std::endl;
-      std::cout << "The Four length of Vector 2 is " << l2 << std::endl;
-      std::cout << "The result of adding these vectors ("
-		<< add.getX() << "," << add.getY() << ","
-		<< add.getZ() << "," << add.getT() << ")" 
-		<< std::endl;
-      std::cout << "The result of subtracting these vectors ("
-		<< sub.getX() << ","<< sub.getY() << ","
-		<< sub.getZ() << ","<< sub.getT() << ")"
-		<< std::endl;
-      std::cout << "The result of multiplying these vectors ("
-		<< mul.getX() << ","<< mul.getY() << ","
-		<< mul.getZ() << ","<< mul.getT() << ")"
-		<< std::endl;
-      std::cout << "The result of dividing these vectors ("
-		<< div.getX() << "," << div.getY() << ","
-		<< div.getZ() << "," << div.getT() << ")"
-		<< std::endl;
-      
+      if(cop == 'q') break;
+      if(cop == '1'){
+	Vec_one = userCreateFourVector();
+	std::cout << "interval = " <<	Vec_one->interval() << std::endl;
+	destroyFourVector(Vec_one);
 
+      }	 
     }
   }
 }
+  
