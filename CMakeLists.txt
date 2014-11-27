@@ -19,18 +19,20 @@ endif()
 # - Tell compiler where to find headers
 # -----------------------------------------------------------
 include_directories(PP6Lib)
+include_directories(FileReader)
 
 # - Add the PP6Lib library
 # -----------------------------------------------------------
 add_subdirectory(PP6Lib)
+add_subdirectory(FileReader)
 
 # - Add the pp6calculator program
 # -----------------------------------------------------------
-add_executable(pp6calculator pp6calculator.cpp PP6Lib/PP6Math.cpp PP6Lib/PP6Math.hpp PP6Lib/DAY1_MENU.cpp PP6Lib/DAY1_MENU.hpp PP6Lib/DAY2_MENU.hpp PP6Lib/DAY2_MENU.cpp PP6Lib/MUONANALYSIS.cpp PP6Lib/MUONANALYSIS.hpp PP6Lib/DAY3_MENU.hpp PP6Lib/DAY3_MENU.cpp )
+add_executable(pp6calculator pp6calculator.cpp )
 
 # - Link pp6calculator to the pp6lib library
 # -----------------------------------------------------------
-target_link_libraries(pp6calculator pp6lib)
+target_link_libraries(pp6calculator pp6lib FileReader)
 
 # - Install pp6calculator to the bin subdirectory of CMAKE_INSTALL_PREFIX
 install(TARGETS pp6calculator DESTINATION bin)

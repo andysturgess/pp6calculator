@@ -47,21 +47,29 @@ struct FourVector{
 class FourVectorclass {
 public:
   //ctors
-  FourVectorclass(): a(0) {}
-  FourVectorclass(double val) : a(val){}
+  FourVectorclass(): x(0) {}
+  FourVectorclass(double val) : x(val){}
   FourVectorclass(const double x_, const double y_, 
 		  const  double z_, const double t_);
   
   ~FourVectorclass(){}
 
-  FourVectorclass& operator+=(const FourVectorclass& rhs)
-  {a += rhs.a; return *this;}
+  FourVectorclass& operator+=(const FourVectorclass& rhs){
+    x += rhs.x;
+    y += rhs.y;
+    z += rhs.z;
+    return *this;
+  }
 
-  FourVectorclass& operator-=(const FourVectorclass& rhs)
-  {a -= rhs.a; return *this;}
+  FourVectorclass& operator-=(const FourVectorclass& rhs){
+    x -= rhs.x;
+    y -= rhs.y;
+    z -= rhs.z;
+    return *this;
+  }
 
   FourVectorclass& operator=(const FourVectorclass& rhs)
-  {if (&rhs != this) {a = rhs.a;} return *this;}
+  {if (&rhs != this) {x = rhs.a;} return *this;}
 
   //member functions
   double getx(), gety(), getz(), gett();

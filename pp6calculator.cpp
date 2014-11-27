@@ -5,6 +5,7 @@
 #include "DAY1_MENU.hpp"
 #include "DAY2_MENU.hpp"
 #include "DAY3_MENU.hpp"
+#include "DAY4_MENU.hpp"
 
 int main(){
 
@@ -18,7 +19,8 @@ int main(){
       std::cout << "Which day would you like to access?" << std::endl;
       std::cout << "1) - Basic Mathematics" << std::endl;
       std::cout << "2) - Arrays etc." << std::endl;
-      std::cout << "3) - structs etc. (hopefully!)" << std::endl;
+      std::cout << "3) - Structs/classes etc." << std::endl;
+      std::cout << "4) - Day 4" << std::endl;
       std::cout << "q) - Quit" << std::endl;
       std::cout << "===============================" << std::endl;
       
@@ -39,9 +41,12 @@ int main(){
       else if (day == '2'){
 	day2_menu();
       }
-       else if (day == '3'){
+      else if (day == '3'){
 	day3_menu();
-       }
+      }
+      else if (day == '4'){
+	day4_menu();
+      }
       else{
 	std::cerr << "[ERR]" << day << " not recognised" << std::endl;
 	continue;
