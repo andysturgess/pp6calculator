@@ -34,9 +34,6 @@ void FileReader::skip_fields(std::istringstream& ist, const int n) {
 }
 
 
-/*
-}
-
 int FileReader::getFieldAsInt(const int n) {
   failed = false;
   std::istringstream ist(line);
@@ -92,7 +89,7 @@ std::string FileReader::getFieldAsString(const int n) {
   else
     return rval;
 }
-*/
+
 
 bool FileReader::inputFailed() const {
   return failed;

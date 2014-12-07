@@ -4,6 +4,7 @@
 
 #include<utility>
 #include<complex>
+#include<string>
 
 #ifndef PP6CALCULATOR_PP6MATH_HH
 #define PP6CALCULATOR_PP6MATH_HH
@@ -17,6 +18,7 @@ double add(double a,double b);
 double subtract(double a, double b);
 double multiply(double a,double b);
 double divide(double a, double b);
+int associative_sort(double *arr, int *indices, int size);
 
 // Solvers
 // ---------------------------------------------------------------
@@ -31,8 +33,10 @@ double invmass(double a, double b, double c, double d, double theta);
 //----------------------------------------------------------------
 double inputvalue();
 void swap(double& a, double&b);
+void swap(int& a, int&b);
 void Bubble(double array[]);
 void SPECTRUM();
+
 
 // Day three declarations
 //-----------------------------------------------------------------
@@ -50,6 +54,8 @@ enum InvariantSign{
   UNDEFINED
 };
 
+
+
 FourVec* createFourVec();
 InvariantSign getInvariantSign(FourVec *q);
 void destroyFourVec(FourVec *&q);
@@ -59,4 +65,5 @@ void opinterval(FourVec *q);
 void boostalongz(double x, double y, double& z, double& t, double v);
 void boostz(FourVec q, double v);
 double invint(FourVec q);
+std::string getString();
 #endif // PP6CALCULATOR_PP6MATH_HH

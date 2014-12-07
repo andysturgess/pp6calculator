@@ -83,9 +83,19 @@ double inputvalue(){
 }
 
 void swap(double& a, double&b){
-  a = a + b;
-  b = a - b;
-  a = a - b;
+  double tmp(a);
+  a = b;
+  b = tmp;
+
+}
+
+
+void swap(int& a, int& b)
+{
+  int tmp(a);
+  a = b;
+  b = tmp;
+
 }
 
 void Bubble(double array[]){
@@ -157,6 +167,7 @@ double invint(FourVec q){
 
 void fillFourVec(FourVec *q, double &x, double &y, double &z, double &t){
   if(q){
+
     q->x=x;
     q->y=y;
     q->z=z;
@@ -211,5 +222,54 @@ InvariantSign getInvariantSign(FourVec *q){
   else{
     return LIGHTLIKE;
   }
+}
+
+std::string getString()
+{
+  std::string res;
+  std::cin >> res;
+  while (!std::cin)
+    {
+      std::cout << "Error in input. Please re-enter >> ";
+      // clear the buffer
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      // retry
+      std::cin >> res;
+    }
+  return res;
+}
+
+
+int associative_sort(double *arr, int *index, int size)
+{
+  // create a temporary array to sort on so we only change the index array
+  double *arr_t = new double[size];
+  for (int i(0); i < size; i++)
+    {
+      arr_t[i] = arr[i];
+    }
+  // Perform a bubble sort on the given array
+  bool done(true);
+  while (true)
+    {
+      done = true;
+      for (int i(0); i < size-1; ++i)
+	{
+	  if (arr_t[i] < arr_t[i+1])
+	    {
+	      swap(index[i], index[i+1]);
+	      swap(arr_t[i], arr_t[i+1]);
+	      done = false;
+	    }
+	}
+      if (done)
+	{
+	  break;
+	}
+    }
+  // delete temporary array, then return success
+  delete [] arr_t;
+  return 0;
 }
 

@@ -2,16 +2,29 @@
 #include <iostream>
 #include <limits>
 #include <vector>
+#include <iomanip>
 #include "PP6Math.hpp"
 #include "FileReader.hpp"
 
 void day4_menu(){
+  
+  std::string partName;
+  int pdgID;
+  int partCharge;
+  double partMass;
+  std::vector<std::string> partName_vec;
+  std::vector<int> pdgID_vec;
+  std::vector<int> partCharge_vec;
+  std::vector<double> partMass_vec;
+  
+  
   char op('\0');
   
   while(true){
     std::cout << "PP6Calculator - DAY 4 MENU" << std::endl;
     std::cout << "=======================================" << std::endl;
-    std::cout << "1) Exercise 1" << std::endl;
+    std::cout << "1) Exercise 1 - Looking at pdg.dat" << std::endl;
+    std::cout << "2) Exercise 2 - Store data into vectors" << std::endl;
     std::cout << "q) Quit" << std::endl;
     std::cout << "=======================================" << std::endl;
 
@@ -33,36 +46,60 @@ void day4_menu(){
 	std::cerr << "[ERR] invalid file" << std::endl;
 	continue;
       }
-      /*
-      std::vector<std::string> PartName;
-      std::vector<int> PDG;
-      std::vector<int> PartCharge;
-      std::vector<double> PartMass;
       
-      while (columns.nextLine()){
-	PartName = columns.getField(1);
-	if (columns.inputFailed()) continue;
-	
-	PDG = columns.getField(2);
-	if (columns.inputFailed()) continue;
+      while(columns.nextLine()){
+      partName = columns.getField<std::string>(1);
+      pdgID = columns.getField<int>(2);
+      partCharge = columns.getField<int>(3);
+      partMass = columns.getField<double>(4);
 
-	PartCharge = columns.getField(3);
-	if (columns.inputFailed()) continue;
-
-	PartMass = columns.getField(4);
-	if (columns.inputFailed()) continue;
-      }
-
-      for (int i = 0; i < PartName.size(); i++){
-	std::cout << "Particle " << " PDG " <<  " Charge " << " Mass " << std::endl;
-	std::cout << Partname[i] << "       " << PDG[i]<< "      " << Charge[i]
-		  << "        "  << Mass[i] << std::endl;
-      }
-      
-      */
+      std::cout << partName << std::setw(20) << pdgID << std:: setw(15) 
+		<< partCharge << std::setw(15) << partMass  
+		<< std::endl;
+	}
     }
+    
+    if(op == '2'){
+      
+      FileReader columns("pdg.dat");
+      if (!columns.isValid()) {
+	std::cerr << "[ERR] invalid file" << std::endl;
+	continue;
+      }
+      
+      while(columns.nextLine()){
+	partName = columns.getField<std::string>(1);
+	pdgID = columns.getField<int>(2);
+	partCharge = columns.getField<int>(3);
+	partMass = columns.getField<double>(4);
+
+	partName_vec.push_back(partName);
+	pdgID_vec.push_back(pdgID);
+	partCharge_vec.push_back(partCharge);
+	partMass_vec.push_back(partMass);
+      }
+
+      std::cout << "partName" << std::setw(10) << "pdgID" 
+		<< std::setw(10) << "partCharge"
+		<< std::setw(10) << "partMass" << std::endl;
+      std::cout << "(size = " << partName_vec.size() << ")"
+		<< std::setw(10) << "(size ="
+		<< pdgID_vec.size() << ")" << std::setw(10) 
+		<< "(size =" << partCharge_vec.size() << ")" 
+		<< std::setw(10) << "(size ="
+		<< partMass_vec.size() << ")" << std::setw(10)
+		<< std::endl;
+      for(unsigned int i = 0; i < partName_vec.size(); i++){
+	std::cout << partName_vec[i] << std::setw(15) 
+		  << pdgID_vec[i] << std::setw(15)
+		  << partCharge_vec[i] << std::setw(15)
+		  << partMass_vec[i] << std::endl;
+      }
+    }  
   }
 }
+
+
 
     
     

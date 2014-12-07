@@ -40,7 +40,7 @@ void muon_pairs(){
   }
 
   for (int j = 0; j < 1000; j++){
-    if(col2[j] == "mu-"){
+    if((col2[j] == "mu-") && (col6[j] == "run4.dat")){
       N++;
       mu_event[N-1] = col1[j];
       mupx[N-1] = col3[j];
@@ -50,7 +50,7 @@ void muon_pairs(){
 	  
     }
 
-    if(col2[j] == "mu+"){
+    if((col2[j] == "mu+")&& (col6[j] == "run4.dat")){
       P++;
       amu_event[P-1] = col1[j];
       amupx[P-1] = col3[j];
@@ -77,11 +77,11 @@ void muon_pairs(){
   }
 
   std::cout << " The program is now sorting those muon values " << std::endl;
-  for(int f = 0; f < 9707;f++){
-    std::sort(Inv,Inv+9707,std::greater<double>());
+  for(int f = 0; f < 144;f++){
+    std::sort(Inv,Inv+144,std::greater<double>());
   }
   
-  for(int f = 0; f < 11; f++){
+  for(int f = 0; f < 10; f++){
     std::cout<< " the result of the sort is " << Inv[f] << std::endl;
     for(int k =0; k < N; k++){
       for(int i = 0; i < P; i++){
