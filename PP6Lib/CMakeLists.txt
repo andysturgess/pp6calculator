@@ -1,4 +1,3 @@
-
 # - CMake script for pp6 library
 # -----------------------------------------------------
 
@@ -22,4 +21,6 @@ add_library(pp6lib STATIC
 		   Particle.hpp
 		   Particle.cpp
 		   MuClassAnalysis.cpp
-		   MuClassAnalysis.hpp)
+		   MuClassAnalysis.hpp
+		   ParticleInfo.cpp
+		   ParticleInfo.hpp)

@@ -109,6 +109,10 @@ void Bubble(double array[]){
   }
 }
 
+double getRandom(){
+  return (rand() % 10000)/100.;
+}
+
 void SPECTRUM(){
   double p_x[100];
   double p_y[100];

@@ -35,6 +35,7 @@ double inputvalue();
 void swap(double& a, double&b);
 void swap(int& a, int&b);
 void Bubble(double array[]);
+double getRandom();
 void SPECTRUM();
 
 
