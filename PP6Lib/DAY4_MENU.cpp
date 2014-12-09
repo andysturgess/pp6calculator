@@ -11,7 +11,15 @@
 #include "PP6Math.hpp"
 #include "ParticleInfo.hpp"
 #include "FileReader.hpp"
+#include "Mu_DAY4.hpp"
 
+
+//! ====================================
+//! This function does what I had written
+//! directly in the code initially; just
+//! moved it outside - reads data into
+//! vectors, outputs using iterators
+//! =====================================
 int readData(){
   FileReader dbase("pdg.dat");
   if(!dbase.isValid()){
@@ -46,6 +54,13 @@ int readData(){
   return 0;
 }
 
+//! ==============================
+//! This is a simple function that
+//! opens a particleinfo database
+//! and checks to see if the data
+//! is what we expect for pdg.dat
+//! ==============================
+
 int checkParticleInfo(){
   const ParticleInfo& database = ParticleInfo("pdg.dat");
   std::cout << "These are a quick series of checks" << std::endl;
@@ -67,17 +82,22 @@ int checkParticleInfo(){
   return 0;
 }
 
+//! ==================================
+//! This function does what is required
+//! for EX5. It takes input from user,
+//! and then acts using STL algorithms
+//! ===================================
 int algorithms(){
 
   size_t s(0);
-
   std::cout << "Enter size of array to generate/sort [5 <= N <= 50]: ";
-
   s = inputvalue();
 
   if((s > 4) && (s < 51)){
-   
     std::vector<double> STLVec(s,0);
+
+    //! Had to add getRandom function to get this to work
+    //! had "__gen" error, i.e can't use a function.
 
     std::generate(STLVec.begin(), STLVec.end(), getRandom );
  
@@ -98,12 +118,13 @@ int algorithms(){
   else{
     std::cout << "hey, enter something in the right range" << std::endl;
   }
-
   return 0;
 }
 
 
-//!===============================================================================
+//!-----------------------------------------------------------------------------------------------------
+//! MAIN PROGRAM
+//!-----------------------------------------------------------------------------------------------------
 
 void day4_menu(){
   
@@ -128,6 +149,8 @@ void day4_menu(){
     std::cout << "3) Exercise 3 - Same but with iterators" << std::endl;
     std::cout << "4) Exercise 4 - Checking ParticleInfo" << std::endl;
     std::cout << "5) Exercise 5 - Algorithm task" << std::endl;
+    std::cout << "6) HW - Muon analysis using STL" << std::endl;
+    std::cout << "A) ASIDE - quick check with maps" << std::endl;
     std::cout << "q) Quit" << std::endl;
     std::cout << "=======================================" << std::endl;
 
@@ -211,8 +234,11 @@ void day4_menu(){
     else if( op == '5'){
       algorithms();
     }
-
-
-  
+    else if( op == '6'){
+      muonanalysis_day4();
+    }
+    else if( op == 'A'){
+      std::cout << "This is a quick aside on using maps" << std::endl;
+    }
   }
 }

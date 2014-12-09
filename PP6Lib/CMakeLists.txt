@@ -23,4 +23,6 @@ add_library(pp6lib STATIC
 		   MuClassAnalysis.cpp
 		   MuClassAnalysis.hpp
 		   ParticleInfo.cpp
-		   ParticleInfo.hpp)
+		   ParticleInfo.hpp
+		   Mu_DAY4.cpp
+		   Mu_DAY4.hpp)
