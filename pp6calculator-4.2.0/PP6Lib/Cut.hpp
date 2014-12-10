@@ -1,24 +1,17 @@
-//!   File : Cut.hpp
-//!   Auth : Andy Sturgess
-//!   Descr: Cut ex1- day5
+#ifndef PP6CUT_HPP
+#define PP6CUT_HPP
 
-#ifndef CUT_EX1_DAY5_HPP
-#define CUT_EX1_DAY5_HPP
+#include <iostream>
+#include <vector>
 
-#include<vector>
-#include<iostream>
+class Particle;
 
-class Cut{
-public:
-  virtual ~Cut(){
-    std::cout << "Cut::~Cut(" << this << ")" << std::endl;
-  }
-  
-  virtual bool select(const Particle& input) = 0;
-  virtual std::vector<Particle> select(const std::vector<Particle>& input) = 0 
- 
+class Cut {
+public: 
+  virtual ~Cut() {std::cout << "This action is Cut" << std::endl;}
 
+  virtual bool select(const Particle& input) const = 0;
+  virtual std::vector<Particle> select(const std::vector<Particle>& inputVec) const = 0;
 };
 
-#endif // CUT_EX1_DAY5_HPP
-  
+#endif // PP6CUT_HPP

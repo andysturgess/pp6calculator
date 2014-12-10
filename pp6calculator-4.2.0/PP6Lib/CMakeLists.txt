@@ -30,5 +30,7 @@ add_library(pp6lib STATIC
   Day5Menu.hpp
   Day5Menu.cpp
   Cut.hpp
+  MassCut.hpp
+  MassCut.cpp
   )
 
