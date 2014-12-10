@@ -1,3 +1,6 @@
+//! MASSCUT.HPP
+
+
 #ifndef MASSCUT_HPP
 #define MASSCUT_HPP
 
