@@ -52,6 +52,7 @@ void day5_menu(){
     std::cout << "2) EnergyCut ( 2 < E(GeV) < 2.5)" << std::endl;
     std::cout << "3) MomentumCut ( < 2.25 GeV) "<< std::endl;
     std::cout << "4) All Three? "<< std::endl;
+    std::cout << "5) Using the Dynamic dispatch" << std::endl;
     std::cout << "q) Quit " << std::endl;
     std::cout << "=======================================" << std::endl;
 
@@ -104,19 +105,39 @@ void day5_menu(){
       }
     }
 
-     if(op == '4'){
+    if(op == '4'){
      
       MomentumCut cutMom("lesser", 2.25);  
       EnergyCut cutEnergy("range", 2.0, 2.5);    
       MassCut cutMass("greater", 0.4); 
-
+       
       std::vector<Particle> Particles_mom = (cutMom.select(particles_info()));
       std::vector<Particle> Particles_mass = (cutMass.select(Particles_mom));
       std::vector<Particle> Particles_en = (cutMass.select(Particles_mass));
-
+       
       std::cout << "Particles which pass " << std::endl;
       for(unsigned int i = 0; i < Particles_en.size(); ++i){
 	std::cout << Particles_en[i] << std::endl;
+      }
+    }
+    
+    if(op == '5'){
+    
+      std::vector<Cut*> cutVector;
+      std::vector<Particle> passedParticles;
+      
+      cutVector.push_back(new MassCut("greater", 0.4));
+      cutVector.push_back(new EnergyCut("range", 2.0, 2.5));
+      cutVector.push_back(new MomentumCut("less", 2.25));
+
+      std::vector<Cut*>::const_iterator cutIter = cutVector.begin();
+      const std::vector<Cut*>::const_iterator cutStop = cutVector.end();
+      std::vector<Particle>::iterator passPart = passedParticles.begin();
+
+      std::cout << " Passed Particles" << std::endl;
+      for(; cutIter != cutStop; ++cutIter, ++passPart){
+	passedParticles = (*cutIter)->select(particles_info());
+	std::cout << *passPart << std::endl;
       }
     }
   }
