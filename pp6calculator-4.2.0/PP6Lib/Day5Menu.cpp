@@ -13,6 +13,7 @@
 #include "MassCut.hpp"
 #include "EnergyCut.hpp"
 #include "MomentumCut.hpp"
+#include "NumericCut.hpp"
 
 #include <boost/shared_ptr.hpp>
 

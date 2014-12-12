@@ -63,3 +63,9 @@ configure_file(pdg.dbt ${PROJECT_BINARY_DIR}/pdg.dbt COPYONLY)
 # - Package pp6calculator sources and executable
 include(CPack)
 
+# - Using BOOST
+find_package(Boost REQUIRED)
+
+# - Including BOOST directory
+include_directories(${BOOST_INCLUDE_DIRS})
+

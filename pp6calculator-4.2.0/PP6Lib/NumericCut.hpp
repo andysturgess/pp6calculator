@@ -1,17 +1,14 @@
-//! MASSCUT.HPP
-
-#ifndef MASSCUT_HPP
-#define MASSCUT_HPP
+#ifndef NUMERIC_CUT_HPP
+#define NUMERIC_CUT_HPP
 
 #include "Cut.hpp"
 
-class MassCut : public Cut{
+class NumericCut : public Cut{
 public:
 
-  
-  MassCut(std::string CutType, double firstVal);
-  MassCut(std::string CutType, double firstVal, double secondVal);
-  virtual ~MassCut();
+  NumericCut(std::string CutType, double firstVal);
+  NumericCut(std::string CutType, double firstVal, double secondVal);
+  virtual ~NumericCut();
   virtual bool select(const Particle& input) const;
   virtual std::vector<Particle> select(const std::vector<Particle>& inputVec) const;
 
@@ -23,4 +20,5 @@ private:
 
 };
 
-#endif //MASSCUT_HPP
+#endif //NUMERIC_CUT_HPP
+

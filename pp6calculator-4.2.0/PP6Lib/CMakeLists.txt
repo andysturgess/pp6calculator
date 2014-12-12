@@ -36,5 +36,7 @@ add_library(pp6lib STATIC
   EnergyCut.cpp
   MomentumCut.cpp
   MomentumCut.hpp
+  NumericCut.cpp
+  NumericCut.hpp
   )
 
