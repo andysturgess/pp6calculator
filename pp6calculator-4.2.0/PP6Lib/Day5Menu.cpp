@@ -14,6 +14,8 @@
 #include "EnergyCut.hpp"
 #include "MomentumCut.hpp"
 
+#include <boost/shared_ptr.hpp>
+
 //! ===========================================
 //! This function stores our data, and returns
 //! a vector (particleData) which contains all
@@ -52,7 +54,7 @@ void day5_menu(){
     std::cout << "2) EnergyCut ( 2 < E(GeV) < 2.5)" << std::endl;
     std::cout << "3) MomentumCut ( < 2.25 GeV) "<< std::endl;
     std::cout << "4) All Three? "<< std::endl;
-    std::cout << "5) Using the Dynamic dispatch" << std::endl;
+    std::cout << "5) Using shared_ptr, " << std::endl;
     std::cout << "q) Quit " << std::endl;
     std::cout << "=======================================" << std::endl;
 
@@ -120,24 +122,33 @@ void day5_menu(){
 	std::cout << Particles_en[i] << std::endl;
       }
     }
-    
     if(op == '5'){
-    
-      std::vector<Cut*> cutVector;
+
+      typedef boost::shared_ptr<Cut> CutPoint;
+      typedef std::vector<CutPoint> cutVector;
+      cutVector cuts;
+
+      CutPoint masspoint(new MassCut("greater",0.4));
+      CutPoint energypoint(new EnergyCut("range", 2.0,2.5));
+      CutPoint mompoint(new MomentumCut("lesser", 2.25));
+
+      cuts.push_back(masspoint);
+      cuts.push_back(energypoint);
+      cuts.push_back(mompoint);
+
       std::vector<Particle> passedParticles;
+      cutVector::const_iterator cut_iter = cuts.begin();
+      cutVector::const_iterator cut_end = cuts.end();
+      for(; cut_iter != cut_end; ++cut_iter){
+	passedParticles = (*cut_iter)->select(particles_info());
+      }
+
+      std::vector<Particle>::const_iterator passIter = passedParticles.begin();
+      std::vector<Particle>::const_iterator passEnd = passedParticles.end();
+
+      for(; passIter != passEnd; ++passIter){
+	std::cout << (*passIter) << std::endl;
       
-      cutVector.push_back(new MassCut("greater", 0.4));
-      cutVector.push_back(new EnergyCut("range", 2.0, 2.5));
-      cutVector.push_back(new MomentumCut("less", 2.25));
-
-      std::vector<Cut*>::const_iterator cutIter = cutVector.begin();
-      const std::vector<Cut*>::const_iterator cutStop = cutVector.end();
-      std::vector<Particle>::iterator passPart = passedParticles.begin();
-
-      std::cout << " Passed Particles" << std::endl;
-      for(; cutIter != cutStop; ++cutIter, ++passPart){
-	passedParticles = (*cutIter)->select(particles_info());
-	std::cout << *passPart << std::endl;
       }
     }
   }
